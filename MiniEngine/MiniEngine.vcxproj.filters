@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Runtime">
+      <UniqueIdentifier>{06e042cd-0950-4df6-8081-0edbd2fa474e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editor">
+      <UniqueIdentifier>{b75a2fbe-27fb-463c-b144-9cdc53464785}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Core">
+      <UniqueIdentifier>{f0982516-7229-4ee1-a5c9-78204c0f176a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Core\Meta">
+      <UniqueIdentifier>{00c3e154-35f2-4732-ae9b-65facaa78bc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Core\Meta\Reflection">
+      <UniqueIdentifier>{69aa0f1f-c67d-4004-9d99-f89979be1db6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp">
+      <Filter>Source Files\Runtime\Core\Meta\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Editor\Main.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Editor\Editor.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h">
+      <Filter>Source Files\Runtime\Core\Meta\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Engine.h">
+      <Filter>Source Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Editor\Editor.h">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
