@@ -24,6 +24,18 @@
     <Filter Include="Source Files\Runtime\Core\Meta\Reflection">
       <UniqueIdentifier>{69aa0f1f-c67d-4004-9d99-f89979be1db6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Runtime\Function">
+      <UniqueIdentifier>{b11a5f05-0e76-4cf4-ba74-16d39bac1f34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Function\UI">
+      <UniqueIdentifier>{ec329986-f6c2-4083-94c2-4f7dcf9e3cec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty">
+      <UniqueIdentifier>{d832a7d7-74b6-4813-9558-75c2f296ebe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\imgui">
+      <UniqueIdentifier>{91d6b652-2872-43e4-a3e5-9d09b3ebdf3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp">
@@ -38,6 +50,27 @@
     <ClCompile Include="Source\Editor\Editor.cpp">
       <Filter>Source Files\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Editor\EditorUI.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\UI\WindowUI.cpp">
+      <Filter>Source Files\Runtime\Function\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui\imgui.cpp">
+      <Filter>3rdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui\imgui_demo.cpp">
+      <Filter>3rdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui\imgui_draw.cpp">
+      <Filter>3rdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui\imgui_tables.cpp">
+      <Filter>3rdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui\imgui_widgets.cpp">
+      <Filter>3rdParty\imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h">
@@ -48,6 +81,30 @@
     </ClInclude>
     <ClInclude Include="Source\Editor\Editor.h">
       <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Editor\EditorUI.h">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\UI\WindowUI.h">
+      <Filter>Source Files\Runtime\Function\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\imgui\imstb_truetype.h">
+      <Filter>3rdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\imgui\imconfig.h">
+      <Filter>3rdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\imgui\imgui.h">
+      <Filter>3rdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\imgui\imgui_internal.h">
+      <Filter>3rdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\imgui\imstb_rectpack.h">
+      <Filter>3rdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\imgui\imstb_textedit.h">
+      <Filter>3rdParty\imgui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
