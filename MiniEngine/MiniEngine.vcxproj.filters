@@ -36,6 +36,9 @@
     <Filter Include="3rdParty\imgui">
       <UniqueIdentifier>{91d6b652-2872-43e4-a3e5-9d09b3ebdf3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Runtime\Function\Render">
+      <UniqueIdentifier>{8cd495e5-7093-4f26-a8ff-6af4341cedc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp">
@@ -71,6 +74,9 @@
     <ClCompile Include="3rdParty\imgui\imgui_widgets.cpp">
       <Filter>3rdParty\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\WindowSystem.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h">
@@ -105,6 +111,9 @@
     </ClInclude>
     <ClInclude Include="3rdParty\imgui\imstb_textedit.h">
       <Filter>3rdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\WindowSystem.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

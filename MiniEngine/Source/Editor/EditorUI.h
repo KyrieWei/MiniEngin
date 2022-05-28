@@ -12,7 +12,7 @@ namespace ME
 		EditorUI();
 
 	public:
-		virtual void Initialize() override final;
+		virtual void Initialize(WindowUIInitInfo init_info) override final;
 		//virtual void PreRender() override final;
 	};
 }

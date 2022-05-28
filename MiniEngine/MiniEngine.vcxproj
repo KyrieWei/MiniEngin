@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -78,9 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Learning\C++Program\MiniEngine\MiniEngine\3rdParty;D:\Learning\C++Program\MiniEngine\MiniEngine\Source;D:\learning\c++ program\MiniEngine\MiniEngine\Source;$(IncludePath)</IncludePath>
+    <IncludePath>D:\learning\c++ program\MiniEngine\MiniEngine\3rdParty;D:\Learning\C++Program\MiniEngine\MiniEngine\3rdParty;D:\Learning\C++Program\MiniEngine\MiniEngine\Source;D:\learning\c++ program\MiniEngine\MiniEngine\Source;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
-    <SourcePath>D:\Learning\C++Program\MiniEngine\MiniEngine\3rdParty\imgui;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -154,6 +153,7 @@
     <ClCompile Include="Source\Editor\Main.cpp" />
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp" />
     <ClCompile Include="Source\Runtime\Engine.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\WindowSystem.cpp" />
     <ClCompile Include="Source\Runtime\Function\UI\WindowUI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +167,7 @@
     <ClInclude Include="Source\Editor\EditorUI.h" />
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h" />
     <ClInclude Include="Source\Runtime\Engine.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\WindowSystem.h" />
     <ClInclude Include="Source\Runtime\Function\UI\WindowUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

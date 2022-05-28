@@ -11,7 +11,7 @@ namespace ME
 
 	}
 
-	void EditorUI::Initialize()
+	void EditorUI::Initialize(WindowUIInitInfo init_info)
 	{
 
 		IMGUI_CHECKVERSION();
