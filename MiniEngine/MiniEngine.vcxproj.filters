@@ -39,6 +39,18 @@
     <Filter Include="Source Files\Runtime\Function\Render">
       <UniqueIdentifier>{8cd495e5-7093-4f26-a8ff-6af4341cedc0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3rdParty\glfw">
+      <UniqueIdentifier>{330ff906-4d72-4c82-bba1-dc3e63321250}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Function\Global">
+      <UniqueIdentifier>{285e89bb-dc71-4ab0-9000-bb046bbeea4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Core\Base">
+      <UniqueIdentifier>{2c34efd3-6697-4af7-8e7a-252a87e6364a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Core\Log">
+      <UniqueIdentifier>{e0c434b2-f190-44a6-891c-ac2bc3610651}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp">
@@ -46,9 +58,6 @@
     </ClCompile>
     <ClCompile Include="Source\Editor\Main.cpp">
       <Filter>Source Files\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Runtime\Engine.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Editor\Editor.cpp">
       <Filter>Source Files\Editor</Filter>
@@ -76,6 +85,15 @@
     </ClCompile>
     <ClCompile Include="Source\Runtime\Function\Render\WindowSystem.cpp">
       <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Global\GlobalContext.cpp">
+      <Filter>Source Files\Runtime\Function\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Core\Log\LogSystem.cpp">
+      <Filter>Source Files\Runtime\Core\Log</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +132,21 @@
     </ClInclude>
     <ClInclude Include="Source\Runtime\Function\Render\WindowSystem.h">
       <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\glfw\glfw3.h">
+      <Filter>3rdParty\glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\glfw\glfw3native.h">
+      <Filter>3rdParty\glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Global\GlobalContext.h">
+      <Filter>Source Files\Runtime\Function\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Base\Macro.h">
+      <Filter>Source Files\Runtime\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Log\LogSystem.h">
+      <Filter>Source Files\Runtime\Core\Log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
