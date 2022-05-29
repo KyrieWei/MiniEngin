@@ -1,6 +1,7 @@
 #include "Engine.h"
 
 #include "Runtime/Core/Base/Macro.h"
+#include "Runtime/Function/Render/WindowSystem.h"
 #include "Runtime/Function/Global/GlobalContext.h"
 
 namespace ME
@@ -68,5 +69,10 @@ namespace ME
 	void MiniEngine::CalculateFPS(float delta_time)
 	{
 
+	}
+
+	bool MiniEngine::RenderTick()
+	{
+		//g_runtime_global_contex
 	}
 }

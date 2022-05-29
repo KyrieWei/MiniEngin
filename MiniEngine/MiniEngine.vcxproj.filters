@@ -95,6 +95,9 @@
     <ClCompile Include="Source\Runtime\Core\Log\LogSystem.cpp">
       <Filter>Source Files\Runtime\Core\Log</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RenderSystem.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h">
@@ -147,6 +150,9 @@
     </ClInclude>
     <ClInclude Include="Source\Runtime\Core\Log\LogSystem.h">
       <Filter>Source Files\Runtime\Core\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderSystem.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

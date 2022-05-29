@@ -40,7 +40,9 @@ namespace ME
 		float delta_time;
 		while (true)
 		{
-			delta_time = m_engine_runtime->CaculateDeltaTime();
+			delta_time = m_engine_runtime->CalculateDeltaTime();
+			if (!m_engine_runtime->TickOneFrame(delta_time))
+				return;
 		}
 	}
 }
