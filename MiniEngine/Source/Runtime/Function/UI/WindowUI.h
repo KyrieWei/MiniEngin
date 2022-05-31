@@ -15,6 +15,6 @@ namespace ME
 	{
 	public:
 		virtual void Initialize(WindowUIInitInfo init_info) = 0;
-		//virtual void PreRender() = 0;
+		virtual void PreRender() = 0;
 	};
 }

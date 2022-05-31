@@ -74,5 +74,6 @@ namespace ME
 	bool MiniEngine::RenderTick()
 	{
 		//g_runtime_global_contex
+		return true;
 	}
 }

@@ -23,7 +23,7 @@ namespace ME
 
 	public:
 		virtual void Initialize(WindowUIInitInfo init_info) override final;
-		//virtual void PreRender() override final;
+		virtual void PreRender() override final;
 
 		
 	};

@@ -32,6 +32,7 @@ namespace ME
 
 	void EditorUI::ShowEditorMenu(bool* bOpen)
 	{
+		ImGuiDockNodeFlags dock_flags = ImGuiDockNodeFlags_DockSpace;
 		ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar |
 			ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize |
 			ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground |
@@ -42,9 +43,63 @@ namespace ME
 		std::array<int, 2> window_size = { 1280, 722 };
 		ImGui::SetNextWindowSize(ImVec2((float)window_size[0], (float)window_size[1]), ImGuiCond_Always);
 
-		//ImGui::SetNextWindowviewport
+		ImGui::SetNextWindowViewport(main_viewport->ID);
 
 		ImGui::Begin("Editor Menu", bOpen, window_flags);
+
+		//ImGuiID main_docking_id = ImGui::GetID("Main Docking");
+		//if (ImGui::DockBuilderGetNode(main_docking_id) == nullptr)
+		//{
+		//	ImGui::DockBuilderRemoveNode(main_docking_id);
+
+		//	ImGui::DockBuilderAddNode(main_docking_id, dock_flags);
+		//	ImGui::DockBuilderSetNodePos(main_docking_id,
+		//		ImVec2(main_viewport->WorkPos.x, main_viewport->WorkPos.y + 18.0f));
+		//	ImGui::DockBuilderSetNodeSize(main_docking_id,
+		//		ImVec2((float)window_size[0], (float)window_size[1] - 18.0f));
+
+		//	ImGuiID center = main_docking_id;
+		//	ImGuiID left;
+		//	ImGuiID right = ImGui::DockBuilderSplitNode(center, ImGuiDir_Right, 0.25f, nullptr, &left);
+
+		//	ImGuiID left_other;
+		//	ImGuiID left_file_content = ImGui::DockBuilderSplitNode(left, ImGuiDir_Down, 0.30f, nullptr, &left_other);
+
+		//	ImGuiID left_game_engine;
+		//	ImGuiID left_asset =
+		//		ImGui::DockBuilderSplitNode(left_other, ImGuiDir_Left, 0.30f, nullptr, &left_game_engine);
+
+		//	ImGui::DockBuilderDockWindow("World Objects", left_asset);
+		//	ImGui::DockBuilderDockWindow("Components Details", right);
+		//	ImGui::DockBuilderDockWindow("File Content", left_file_content);
+		//	ImGui::DockBuilderDockWindow("Game Engine", left_game_engine);
+
+		//	ImGui::DockBuilderFinish(main_docking_id);
+		//}
+
+		if (ImGui::BeginMenuBar())
+		{
+			if (ImGui::BeginMenu("Menu"))
+			{
+				if (ImGui::MenuItem("Reload Current Level"))
+				{
+					//g_runtime_global_context.m_world_manager->reloadCurrentLevel();
+					//g_runtime_global_context.m_render_system->clearForLevelReloading();
+					//g_editor_global_context.m_scene_manager->onGObjectSelected(k_invalid_gobject_id);
+				}
+				if (ImGui::MenuItem("Save Current Level"))
+				{
+					//g_runtime_global_context.m_world_manager->saveCurrentLevel();
+				}
+				if (ImGui::MenuItem("Exit"))
+				{
+					//g_editor_global_context.m_engine_runtime->shutdownEngine();
+					exit(0);
+				}
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenuBar();
+		}
 
 		ImGui::End();
 	}
@@ -97,6 +152,8 @@ namespace ME
 		
 		ImGuiIO& io = ImGui::GetIO();
 		io.ConfigWindowsMoveFromTitleBarOnly = true;
+
+		
 		
 		ImGuiStyle& style = ImGui::GetStyle();
 		style.WindowPadding = ImVec2(1.0, 0);
@@ -153,8 +210,8 @@ namespace ME
 		colors[ImGuiCol_TabActive] = ImVec4(47.0f / 255.0f, 6.0f / 255.0f, 29.0f / 255.0f, 1.0f);
 		colors[ImGuiCol_TabUnfocused] = ImVec4(45.0f / 255.0f, 7.0f / 255.0f, 26.0f / 255.0f, 25.0f / 255.0f);
 		colors[ImGuiCol_TabUnfocusedActive] = ImVec4(6.0f / 255.0f, 6.0f / 255.0f, 8.0f / 255.0f, 200.0f / 255.0f);
-		//colors[ImGuiCol_DockingPreview] = ImVec4(47.0f / 255.0f, 6.0f / 255.0f, 29.0f / 255.0f, 0.7f);
-		//colors[ImGuiCol_DockingEmptyBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.00f);
+		colors[ImGuiCol_DockingPreview] = ImVec4(47.0f / 255.0f, 6.0f / 255.0f, 29.0f / 255.0f, 0.7f);
+		colors[ImGuiCol_DockingEmptyBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.00f);
 		colors[ImGuiCol_PlotLines] = ImVec4(0.61f, 0.61f, 0.61f, 1.00f);
 		colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 1.00f);
 		colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
@@ -172,5 +229,5 @@ namespace ME
 		colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
 	}
 
-
+	void EditorUI::PreRender() { ShowEditorUI(); }
 } // namespace ME

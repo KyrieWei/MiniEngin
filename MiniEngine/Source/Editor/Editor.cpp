@@ -38,11 +38,14 @@ namespace ME
 		assert(m_engine_runtime);
 		assert(m_editor_ui);
 		float delta_time;
+
 		while (true)
 		{
 			delta_time = m_engine_runtime->CalculateDeltaTime();
 			if (!m_engine_runtime->TickOneFrame(delta_time))
 				return;
+
+			//m_editor_ui->PreRender();
 		}
 	}
 }

@@ -2,11 +2,6 @@
 
 namespace ME
 {
-	RenderSystem::RenderSystem()
-	{
-
-	}
-
 	RenderSystem::~RenderSystem()
 	{
 
