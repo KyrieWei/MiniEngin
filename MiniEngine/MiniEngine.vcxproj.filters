@@ -51,6 +51,15 @@
     <Filter Include="Source Files\Runtime\Core\Log">
       <UniqueIdentifier>{e0c434b2-f190-44a6-891c-ac2bc3610651}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Runtime\Function\Render\Passes">
+      <UniqueIdentifier>{cfe16585-280f-4255-aeba-b8b94db2ded0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Function\Render\RHI">
+      <UniqueIdentifier>{e46a4fad-9875-41b2-9ceb-6f7642ce495d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Function\Render\RHI\Vulkan">
+      <UniqueIdentifier>{618a2865-9f1d-4520-96dc-521d11c28f78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp">
@@ -96,6 +105,21 @@
       <Filter>Source Files\Runtime\Core\Log</Filter>
     </ClCompile>
     <ClCompile Include="Source\Runtime\Function\Render\RenderSystem.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RHI.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanRHI.cpp">
+      <Filter>Source Files\Runtime\Function\Render\RHI\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RenderPipeline.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RenderPipelineBase.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RenderResourceBase.cpp">
       <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClCompile>
   </ItemGroup>
@@ -152,6 +176,24 @@
       <Filter>Source Files\Runtime\Core\Log</Filter>
     </ClInclude>
     <ClInclude Include="Source\Runtime\Function\Render\RenderSystem.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RHI.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanRHI.h">
+      <Filter>Source Files\Runtime\Function\Render\RHI\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderPipeline.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderPipelineBase.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderResourceBase.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderType.h">
       <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClInclude>
   </ItemGroup>

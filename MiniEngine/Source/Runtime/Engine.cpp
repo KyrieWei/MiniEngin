@@ -6,6 +6,8 @@
 
 namespace ME
 {
+	const float MiniEngine::k_fps_alpha = 1.f / 100;
+
 	void MiniEngine::StartEngine(const EngineInitParams& param)
 	{
 		m_init_params = param;
@@ -65,10 +67,20 @@ namespace ME
 	}
 
 
-
+	
 	void MiniEngine::CalculateFPS(float delta_time)
 	{
+		m_frame_count++;
+		if (m_frame_count == 1)
+		{
+			m_average_duration = delta_time;
+		}
+		else
+		{
+			m_average_duration = m_average_duration * (1 - k_fps_alpha) + delta_time * k_fps_alpha;
+		}
 
+		m_fps = static_cast<int>(1.f / m_average_duration);
 	}
 
 	bool MiniEngine::RenderTick()

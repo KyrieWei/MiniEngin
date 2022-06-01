@@ -15,6 +15,8 @@ namespace ME
 
 		friend class MiniEngineEditor;
 
+		static const float k_fps_alpha;
+
 	public:
 		void StartEngine(const EngineInitParams& param);
 		void ShutdownEngine();

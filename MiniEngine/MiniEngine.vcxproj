@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -80,7 +80,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\learning\c++ program\MiniEngine\MiniEngine\3rdParty;D:\Learning\C++Program\MiniEngine\MiniEngine\3rdParty;D:\Learning\C++Program\MiniEngine\MiniEngine\Source;D:\learning\c++ program\MiniEngine\MiniEngine\Source;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>D:\Learning\C++Program\MiniEngine\MiniEngine\3rdParty\libs;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\learning\c++ program\MiniEngine\MiniEngine\3rdParty\libs;D:\Learning\C++Program\MiniEngine\MiniEngine\3rdParty\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -157,7 +157,12 @@
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp" />
     <ClCompile Include="Source\Runtime\Engine.cpp" />
     <ClCompile Include="Source\Runtime\Function\Global\GlobalContext.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\RenderPipeline.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\RenderPipelineBase.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\RenderResourceBase.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RenderSystem.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\RHI.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanRHI.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\WindowSystem.cpp" />
     <ClCompile Include="Source\Runtime\Function\UI\WindowUI.cpp" />
   </ItemGroup>
@@ -177,7 +182,13 @@
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h" />
     <ClInclude Include="Source\Runtime\Engine.h" />
     <ClInclude Include="Source\Runtime\Function\Global\GlobalContext.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RenderPipeline.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RenderPipelineBase.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RenderResourceBase.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderSystem.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RenderType.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RHI.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanRHI.h" />
     <ClInclude Include="Source\Runtime\Function\Render\WindowSystem.h" />
     <ClInclude Include="Source\Runtime\Function\UI\WindowUI.h" />
   </ItemGroup>
