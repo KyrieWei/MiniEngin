@@ -2,6 +2,7 @@
 
 #include "Runtime/Core/Base/Macro.h"
 #include "Runtime/Function/Render/WindowSystem.h"
+#include "Runtime/Function/Render/RenderSystem.h"
 #include "Runtime/Function/Global/GlobalContext.h"
 
 namespace ME
@@ -85,7 +86,7 @@ namespace ME
 
 	bool MiniEngine::RenderTick()
 	{
-		//g_runtime_global_contex
+		g_runtime_global_context.m_render_system->Tick();
 		return true;
 	}
 }

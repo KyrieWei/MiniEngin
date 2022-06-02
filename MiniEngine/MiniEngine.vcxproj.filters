@@ -122,6 +122,15 @@
     <ClCompile Include="Source\Runtime\Function\Render\RenderResourceBase.cpp">
       <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\Passes\UIPass.cpp">
+      <Filter>Source Files\Runtime\Function\Render\Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RenderPass.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RenderPassBase.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h">
@@ -194,6 +203,15 @@
       <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClInclude>
     <ClInclude Include="Source\Runtime\Function\Render\RenderType.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\Passes\UIPass.h">
+      <Filter>Source Files\Runtime\Function\Render\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderPass.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderPassBase.h">
       <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClInclude>
   </ItemGroup>

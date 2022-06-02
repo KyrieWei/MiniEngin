@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Runtime/Function/Render/RenderPassBase.h"
+
 #include <memory>
 #include <vector>
 
@@ -28,6 +30,8 @@ namespace ME
 
 	protected:
 		std::shared_ptr<RHI> m_rhi;
+
+		std::shared_ptr<RenderPassBase> m_ui_pass;
 	};
 }
 

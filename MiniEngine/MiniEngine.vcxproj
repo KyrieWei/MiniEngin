@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -125,7 +125,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -157,6 +157,9 @@
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp" />
     <ClCompile Include="Source\Runtime\Engine.cpp" />
     <ClCompile Include="Source\Runtime\Function\Global\GlobalContext.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\Passes\UIPass.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\RenderPass.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\RenderPassBase.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RenderPipeline.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RenderPipelineBase.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RenderResourceBase.cpp" />
@@ -182,6 +185,9 @@
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h" />
     <ClInclude Include="Source\Runtime\Engine.h" />
     <ClInclude Include="Source\Runtime\Function\Global\GlobalContext.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\Passes\UIPass.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RenderPass.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RenderPassBase.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderPipeline.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderPipelineBase.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderResourceBase.h" />
