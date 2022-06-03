@@ -28,9 +28,12 @@ namespace ME
 		virtual void ForwardRender(std::shared_ptr<RHI> rhi, std::shared_ptr<RenderResourceBase> render_resource);
 		virtual void DeferredRender(std::shared_ptr<RHI> rhi, std::shared_ptr<RenderResourceBase> render_resource);
 
+		void InitializeUIRenderBackend(WindowUI* window_ui);
+		
 	protected:
 		std::shared_ptr<RHI> m_rhi;
 
+		std::shared_ptr<RenderPassBase> m_main_camera_pass;
 		std::shared_ptr<RenderPassBase> m_ui_pass;
 	};
 }

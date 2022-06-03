@@ -10,6 +10,21 @@ namespace ME
 {
 	class VulkanRHI;
 
+	enum
+	{
+		_main_camera_pass_gbuffer_a				= 0,
+		_main_camera_pass_backup_buffer_odd		= 3,
+		_main_camera_pass_backup_buffer_even	= 4,
+		_main_camera_pass_attachment_count		= 9,
+	};
+
+	enum
+	{
+		_main_camera_subpass_basepass = 0,
+		_main_camera_subpass_ui,
+		_main_camera_subpass_count
+	};
+
 	class RenderPass : public RenderPassBase
 	{
 	public:

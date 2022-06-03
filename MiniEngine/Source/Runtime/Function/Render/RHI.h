@@ -1,4 +1,8 @@
 #pragma once
+
+#define GLFW_INCLUE_VULKAN
+#include <glfw/glfw3.h>
+
 #include <memory>
 
 namespace ME
@@ -16,6 +20,9 @@ namespace ME
 		virtual ~RHI() = 0;
 		virtual void Initialize(RHIInitInfo init_info) = 0;
 		virtual void PrepareContext() = 0;
+
+	public:
+		
 
 	private:
 

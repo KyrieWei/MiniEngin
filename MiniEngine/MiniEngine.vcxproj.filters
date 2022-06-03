@@ -131,6 +131,15 @@
     <ClCompile Include="Source\Runtime\Function\Render\RenderPassBase.cpp">
       <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\Passes\MainCameraPass.cpp">
+      <Filter>Source Files\Runtime\Function\Render\Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui\backends\imgui_impl_glfw.cpp">
+      <Filter>3rdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui\backends\imgui_impl_vulkan.cpp">
+      <Filter>3rdParty\imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h">
@@ -213,6 +222,15 @@
     </ClInclude>
     <ClInclude Include="Source\Runtime\Function\Render\RenderPassBase.h">
       <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\Passes\MainCameraPass.h">
+      <Filter>Source Files\Runtime\Function\Render\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\imgui\backends\imgui_impl_glfw.h">
+      <Filter>3rdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\imgui\backends\imgui_impl_vulkan.h">
+      <Filter>3rdParty\imgui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
