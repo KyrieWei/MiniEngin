@@ -165,6 +165,7 @@
     <ClCompile Include="Source\Runtime\Function\Render\RenderPassBase.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RenderPipeline.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RenderPipelineBase.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\RenderResource.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RenderResourceBase.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RenderSystem.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RHI.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Source\Runtime\Function\Render\RenderPassBase.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderPipeline.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderPipelineBase.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RenderResource.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderResourceBase.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderSystem.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderType.h" />

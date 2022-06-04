@@ -10,6 +10,29 @@ namespace ME
 	{
 		RenderPass::Initialize(nullptr);
 
+		SetupRenderPass();
+	}
+
+	void MainCameraPass::PreparePassData(std::shared_ptr<RenderResourceBase> render_resource)
+	{
+
+	}
+
+	void MainCameraPass::SetupAttachments()
+	{
+		m_framebuffer.attachments.resize(_main_camera_pass_custom_attachment_count +
+										 _main_camera_pass_post_process_attachment_count);
+
+		m_framebuffer.attachments[_main_camera_pass_gbuffer_a].format			= VK_FORMAT_R8G8B8A8_UNORM;
+		m_framebuffer.attachments[_main_camera_pass_gbuffer_b].format			= VK_FORMAT_R8G8B8A8_UNORM;
+		m_framebuffer.attachments[_main_camera_pass_gbuffer_c].format			= VK_FORMAT_R8G8B8A8_SRGB;
+		m_framebuffer.attachments[_main_camera_pass_backup_buffer_odd].format	= VK_FORMAT_R16G16B16A16_SFLOAT;
+		m_framebuffer.attachments[_main_camera_pass_backup_buffer_even].format	= VK_FORMAT_R16G16B16A16_SFLOAT;
+
+		for (int i = 0; i < _main_camera_pass_custom_attachment_count; ++i)
+		{
+			
+		}
 	}
 	
 	void MainCameraPass::SetupRenderPass()
@@ -17,7 +40,7 @@ namespace ME
 		VkAttachmentDescription attachments[_main_camera_pass_attachment_count] = {};
 
 		VkAttachmentDescription& backup_odd_color_attachment_description = attachments[_main_camera_pass_backup_buffer_odd];
-		backup_odd_color_attachment_description.format;
+		backup_odd_color_attachment_description.format			= m_framebuffer.attachments[_main_camera_pass_backup_buffer_odd].format;
 		backup_odd_color_attachment_description.samples			= VK_SAMPLE_COUNT_1_BIT;
 		backup_odd_color_attachment_description.loadOp			= VK_ATTACHMENT_LOAD_OP_CLEAR;
 		backup_odd_color_attachment_description.storeOp			= VK_ATTACHMENT_STORE_OP_DONT_CARE;
@@ -27,7 +50,7 @@ namespace ME
 		backup_odd_color_attachment_description.finalLayout		= VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
 		VkAttachmentDescription& backup_even_color_attachment_description = attachments[_main_camera_pass_backup_buffer_even];
-		backup_even_color_attachment_description.format;
+		backup_even_color_attachment_description.format			= m_framebuffer.attachments[_main_camera_pass_backup_buffer_even].format;
 		backup_even_color_attachment_description.samples		= VK_SAMPLE_COUNT_1_BIT;
 		backup_even_color_attachment_description.loadOp			= VK_ATTACHMENT_LOAD_OP_CLEAR;
 		backup_even_color_attachment_description.storeOp		= VK_ATTACHMENT_STORE_OP_DONT_CARE;

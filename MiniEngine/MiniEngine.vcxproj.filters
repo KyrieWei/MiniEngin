@@ -140,6 +140,9 @@
     <ClCompile Include="3rdParty\imgui\backends\imgui_impl_vulkan.cpp">
       <Filter>3rdParty\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RenderResource.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h">
@@ -231,6 +234,9 @@
     </ClInclude>
     <ClInclude Include="3rdParty\imgui\backends\imgui_impl_vulkan.h">
       <Filter>3rdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderResource.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

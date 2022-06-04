@@ -1,6 +1,6 @@
 #pragma once
 
-#define GLFW_INCLUE_VULKAN
+#define GLFW_INCLUDE_VULKAN
 #include <glfw/glfw3.h>
 
 #include <memory>
@@ -23,6 +23,10 @@ namespace ME
 
 	public:
 		
+	protected:
+		bool m_enable_validation_layers{ true };
+		bool m_enable_debug_utils_label{ true };
+		//bool m_enable_point_light
 
 	private:
 

@@ -20,6 +20,7 @@ namespace ME
 		void DrawForward(UIPass& ui_pass, uint32_t current_swapchain_image_index);
 
 	private:
+		void SetupAttachments();
 		void SetupRenderPass();
 	private:
 		std::vector<VkFramebuffer> m_swapchain_framebuffers;

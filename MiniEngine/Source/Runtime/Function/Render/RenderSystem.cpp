@@ -2,6 +2,7 @@
 
 #include "Runtime/Core/Base/Macro.h"
 #include "Runtime/Function/Render/RenderPipeline.h"
+#include "Runtime/Function/Render/RenderResource.h"
 #include "Runtime/Function/Render/RHI/Vulkan/VulkanRHI.h"
 
 namespace ME
@@ -18,6 +19,16 @@ namespace ME
 
 		m_rhi = std::make_shared<VulkanRHI>();
 		m_rhi->Initialize(rhi_init_info);
+
+		m_render_resource = std::make_shared<RenderResource>();
+
+		// initialize render pipeline
+		RenderPipelineInitInfo pipeline_init_info;
+		pipeline_init_info.render_resource = m_render_resource;
+
+		m_render_pipeline = std::make_shared<RenderPipeline>();
+		m_render_pipeline->m_rhi = m_rhi;
+		m_render_pipeline->Initialize(pipeline_init_info);
 	}
 
 	void RenderSystem::Tick()

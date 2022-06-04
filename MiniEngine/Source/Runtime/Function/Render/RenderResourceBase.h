@@ -1,5 +1,12 @@
 #pragma once
-class RenderResourceBase
+
+namespace ME
 {
-};
+
+	class RenderResourceBase
+	{
+
+	};
+} // namespace ME
+
 
