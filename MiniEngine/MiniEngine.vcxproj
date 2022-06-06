@@ -170,6 +170,7 @@
     <ClCompile Include="Source\Runtime\Function\Render\RenderSystem.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RHI.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanRHI.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanUtil.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\WindowSystem.cpp" />
     <ClCompile Include="Source\Runtime\Function\UI\WindowUI.cpp" />
   </ItemGroup>
@@ -184,6 +185,7 @@
     <ClInclude Include="3rdParty\imgui\imstb_rectpack.h" />
     <ClInclude Include="3rdParty\imgui\imstb_textedit.h" />
     <ClInclude Include="3rdParty\imgui\imstb_truetype.h" />
+    <ClInclude Include="3rdParty\vulkanmemallocator\vk_mem_alloc.h" />
     <ClInclude Include="Source\Editor\Editor.h" />
     <ClInclude Include="Source\Editor\EditorUI.h" />
     <ClInclude Include="Source\Runtime\Core\Base\Macro.h" />
@@ -203,6 +205,7 @@
     <ClInclude Include="Source\Runtime\Function\Render\RenderType.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RHI.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanRHI.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanUtil.h" />
     <ClInclude Include="Source\Runtime\Function\Render\WindowSystem.h" />
     <ClInclude Include="Source\Runtime\Function\UI\WindowUI.h" />
   </ItemGroup>

@@ -28,6 +28,10 @@ namespace ME
 		bool m_enable_debug_utils_label{ true };
 		//bool m_enable_point_light
 
+		// used in descriptor pool creation
+		uint32_t m_max_vertex_blending_mesh_count{ 256 };
+		uint32_t m_max_material_count{ 256 };
+
 	private:
 
 	};

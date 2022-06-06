@@ -1,5 +1,9 @@
 #include "VulkanRHI.h"
+#include "VulkanUtil.h"
 #include "Runtime/Function/Render/WindowSystem.h"
+
+#define VMA_IMPLEMENTATION 1
+#include <vulkanmemallocator/vk_mem_alloc.h>
 
 #include <algorithm>
 #include <cassert>
@@ -44,6 +48,20 @@ namespace ME
 		CreateLogicalDevice();
 
 		CreateCommandPool();
+
+		CreateCommandBuffers();
+
+		CreateDescriptorPool();
+
+		CreateSyncPrimitives();
+
+		CreateSwapchain();
+
+		CreateSwapchainImageViews();
+
+		CreateFramebufferImageAndView();
+
+		CreateAssetAllocator();
 	}
 
 	void VulkanRHI::PrepareContext()
@@ -334,17 +352,122 @@ namespace ME
 
 	void VulkanRHI::CreateCommandBuffers()
 	{
+		VkCommandBufferAllocateInfo command_buffer_allocate_info{};
+		command_buffer_allocate_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+		command_buffer_allocate_info.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+		command_buffer_allocate_info.commandBufferCount = 1U;
 
+		for (uint32_t i = 0; i < m_max_frames_in_flight; i++)
+		{
+			command_buffer_allocate_info.commandPool = m_command_pools[i];
+			
+			if (vkAllocateCommandBuffers(m_device, &command_buffer_allocate_info, &m_command_buffers[i]) != VK_SUCCESS)
+			{
+				throw std::runtime_error("Failed to create command buffers!");
+			}
+		}
+	}
+
+	void VulkanRHI::CreateDescriptorPool()
+	{
+		VkDescriptorPoolSize pool_sizes[5];
+		pool_sizes[0].type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC;
+		pool_sizes[0].descriptorCount = 3 + 2 + 2 + 2 + 1 + 1 + 3 + 3;
+		pool_sizes[1].type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+		pool_sizes[1].descriptorCount = 1 + 1 + 1 * m_max_vertex_blending_mesh_count;
+		pool_sizes[2].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+		pool_sizes[2].descriptorCount = 1 * m_max_material_count;
+		pool_sizes[3].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		pool_sizes[3].descriptorCount = 3 + 5 * m_max_material_count + 1 + 1; // ImGui_ImplVulkan_CreateDeviceObjects
+		pool_sizes[4].type = VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT;
+		pool_sizes[4].descriptorCount = 4 + 1 + 1 + 2;
+
+		VkDescriptorPoolCreateInfo pool_info{};
+		pool_info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+		pool_info.poolSizeCount = sizeof(pool_sizes) / sizeof(pool_sizes[0]);
+		pool_info.pPoolSizes = pool_sizes;
+		pool_info.maxSets = 1 + 1 + 1 + m_max_material_count + m_max_vertex_blending_mesh_count + 1 + 1;
+		pool_info.flags = 0U;
+
+		if (vkCreateDescriptorPool(m_device, &pool_info, nullptr, &m_descriptor_pool) != VK_SUCCESS)
+		{
+			throw std::runtime_error("Failed to create descriptor pool!");
+		}
+	}
+
+	void VulkanRHI::CreateSyncPrimitives()
+	{
+		VkSemaphoreCreateInfo semaphore_create_info{};
+		semaphore_create_info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+
+		VkFenceCreateInfo fence_create_info{};
+		fence_create_info.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+		fence_create_info.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+
+		for (uint32_t i = 0; i < m_max_frames_in_flight; i++)
+		{
+			if (vkCreateSemaphore(m_device, &semaphore_create_info, nullptr, &m_image_available_for_render_semaphores[i])
+				!= VK_SUCCESS ||
+				vkCreateSemaphore(m_device, &semaphore_create_info, nullptr, &m_image_finished_for_presentation_semaphores[i])
+				!= VK_SUCCESS ||
+				vkCreateFence(m_device, &fence_create_info, nullptr, &m_is_frame_in_flight_fences[i]) != VK_SUCCESS)
+			{
+				throw std::runtime_error("Failed to create semaphore & fence!");
+			}
+		}
 	}
 
 	void VulkanRHI::CreateSwapchainImageViews()
 	{
+		m_swapchain_imageviews.resize(m_swapchain_images.size());
 
+		// create imageview (one for each this time) for all swapchain images
+		for (size_t i = 0; i < m_swapchain_images.size(); i++)
+		{
+			m_swapchain_imageviews[i] = VulkanUtil::CreateImageView(m_device,
+																	m_swapchain_images[i],
+																	m_swapchain_image_format,
+																	VK_IMAGE_ASPECT_COLOR_BIT,
+																	VK_IMAGE_VIEW_TYPE_2D,
+																	1,
+																	1);
+		}
 	}
 
 	void VulkanRHI::CreateFramebufferImageAndView()
 	{
+		VulkanUtil::CreateImage(m_physical_device,
+			m_device,
+			m_swapchain_extent.width,
+			m_swapchain_extent.height,
+			m_depth_image_format,
+			VK_IMAGE_TILING_OPTIMAL,
+			VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT |
+			VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT,
+			VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+			m_depth_image,
+			m_depth_image_memory,
+			0,
+			1,
+			1);
 
+
+	}
+
+	void VulkanRHI::CreateAssetAllocator()
+	{
+		VmaVulkanFunctions vulkanFunctions = {};
+		vulkanFunctions.vkGetInstanceProcAddr = &vkGetInstanceProcAddr;
+		vulkanFunctions.vkGetDeviceProcAddr = &vkGetDeviceProcAddr;
+
+		VmaAllocatorCreateInfo allocatorCreateInfo = {};
+		allocatorCreateInfo.vulkanApiVersion = m_vulkan_api_version;
+		allocatorCreateInfo.physicalDevice = m_physical_device;
+		allocatorCreateInfo.device = m_device;
+		allocatorCreateInfo.instance = m_instance;
+		allocatorCreateInfo.pVulkanFunctions = &vulkanFunctions;
+
+		vmaCreateAllocator(&allocatorCreateInfo, &m_assets_allocator);
 	}
 
 	void VulkanRHI::CreateSwapchain()
@@ -584,16 +707,50 @@ namespace ME
 
 	VkSurfaceFormatKHR VulkanRHI::ChooseSwapchainSurfaceFormatFromDetails(const std::vector<VkSurfaceFormatKHR>& available_surface_fromats)
 	{
+		for (const auto& surface_format : available_surface_fromats)
+		{
+			// TODO: select the VK_FORMAT_B8G8R8A8_SRGB surface format
+			// there is no need to do gamma correction in the fragment shader
+			if (surface_format.format == VK_FORMAT_B8G8R8A8_UNORM &&
+				surface_format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)
+			{
+				return surface_format;
+			}
+		}
+
 		return available_surface_fromats[0];
 	}
 
 	VkPresentModeKHR VulkanRHI::ChooseSwapchainPresentModeFromDetails(const std::vector<VkPresentModeKHR>& available_present_modes)
 	{
+		for (VkPresentModeKHR present_mode : available_present_modes)
+		{
+			if (VK_PRESENT_MODE_MAILBOX_KHR == present_mode)
+			{
+				return VK_PRESENT_MODE_MAILBOX_KHR;
+			}
+		}
+
 		return VK_PRESENT_MODE_FIFO_KHR;
 	}
 
 	VkExtent2D VulkanRHI::ChooseSwapchainExtentFromDetails(const VkSurfaceCapabilitiesKHR& capabilities)
 	{
-		return capabilities.currentExtent;
+		if (capabilities.currentExtent.width != UINT32_MAX)
+		{
+			return capabilities.currentExtent;
+		}
+		else
+		{
+			int width, height;
+			glfwGetFramebufferSize(m_window, &width, &height);
+
+			VkExtent2D actualExtent = { static_cast<uint32_t>(width), static_cast<uint32_t>(height) };
+
+			actualExtent.width = std::clamp(actualExtent.width, capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
+			actualExtent.height = std::clamp(actualExtent.height, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
+
+			return actualExtent;
+		}
 	}
-}
+} // namespace ME

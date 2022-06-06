@@ -60,6 +60,9 @@
     <Filter Include="Source Files\Runtime\Function\Render\RHI\Vulkan">
       <UniqueIdentifier>{618a2865-9f1d-4520-96dc-521d11c28f78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3rdParty\vulkanmemallocator">
+      <UniqueIdentifier>{1293f97d-2bea-47db-a811-6134542e965d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp">
@@ -142,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="Source\Runtime\Function\Render\RenderResource.cpp">
       <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanUtil.cpp">
+      <Filter>Source Files\Runtime\Function\Render\RHI\Vulkan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +243,12 @@
     </ClInclude>
     <ClInclude Include="Source\Runtime\Function\Render\RenderResource.h">
       <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanUtil.h">
+      <Filter>Source Files\Runtime\Function\Render\RHI\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\vulkanmemallocator\vk_mem_alloc.h">
+      <Filter>3rdParty\vulkanmemallocator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

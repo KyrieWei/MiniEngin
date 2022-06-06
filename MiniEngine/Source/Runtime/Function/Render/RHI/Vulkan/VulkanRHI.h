@@ -1,6 +1,7 @@
 #pragma once
 #include "Runtime/Function/Render/RHI.h"
 
+#include <vulkanmemallocator/vk_mem_alloc.h>
 #include <vulkan/vulkan.h>
 #include <optional>
 #include <vector>
@@ -51,6 +52,8 @@ namespace ME
 		void CreateCommandPool();
 		void CreateCommandBuffers();
 		void CreateDescriptorPool();
+		void CreateSyncPrimitives();
+		void CreateAssetAllocator();
 
 		bool CheckValidationLayerSupport();
 		std::vector<const char*> GetRequiredExtensions();
@@ -81,6 +84,7 @@ namespace ME
 		VkPhysicalDevice	m_physical_device{ VK_NULL_HANDLE };
 		QueueFamilyIndices	m_queue_indices;
 		VkDevice			m_device{ VK_NULL_HANDLE };
+		VkFormat			m_depth_image_format{ VK_FORMAT_UNDEFINED };
 		VkQueue				m_graphics_queue{ VK_NULL_HANDLE };
 		VkQueue				m_present_queue{ VK_NULL_HANDLE };
 		VkCommandPool		m_command_pool{ VK_NULL_HANDLE };
@@ -91,7 +95,14 @@ namespace ME
 		std::vector<VkImage>		m_swapchain_images;
 		std::vector<VkImageView>	m_swapchain_imageviews;
 
+		VkImage			m_depth_image{ VK_NULL_HANDLE };
+		VkDeviceMemory	m_depth_image_memory{ VK_NULL_HANDLE };
+		VkImageView		m_depth_image_view{ VK_NULL_HANDLE };
+
 		std::vector<VkFramebuffer>	m_swapchain_framebuffers;
+
+		// asset allocator use VMA library
+		VmaAllocator m_assets_allocator;
 
 		// function pointers
 		PFN_vkWaitForFences m_vk_wait_for_fences;
