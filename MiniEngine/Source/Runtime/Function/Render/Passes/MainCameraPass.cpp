@@ -10,6 +10,7 @@ namespace ME
 	{
 		RenderPass::Initialize(nullptr);
 
+		SetupAttachments();
 		SetupRenderPass();
 	}
 
@@ -37,6 +38,7 @@ namespace ME
 	
 	void MainCameraPass::SetupRenderPass()
 	{
+		/*
 		VkAttachmentDescription attachments[_main_camera_pass_attachment_count] = {};
 
 		VkAttachmentDescription& backup_odd_color_attachment_description = attachments[_main_camera_pass_backup_buffer_odd];
@@ -77,16 +79,58 @@ namespace ME
 		ui_pass.preserveAttachmentCount = 1;
 		ui_pass.pPreserveAttachments = &ui_pass_preserve_attachment;
 
+		VkSubpassDependency dependencies[8] = {};
+
 		VkRenderPassCreateInfo renderpass_create_info{};
 		renderpass_create_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
 		renderpass_create_info.attachmentCount = (sizeof(attachments) / sizeof(attachments[0]));
 		renderpass_create_info.pAttachments = attachments;
+		renderpass_create_info.subpassCount = (sizeof(subpasses) / sizeof(subpasses[0]));
 		renderpass_create_info.pSubpasses = subpasses;
-		//renderpass_create_info.dependencyCount
+		renderpass_create_info.dependencyCount = (sizeof(dependencies) / sizeof(dependencies[0]));
+		renderpass_create_info.pDependencies = dependencies;
+		*/
 
-		if (vkCreateRenderPass(m_vulkan_rhi->m_device, &renderpass_create_info, nullptr, &m_framebuffer.render_pass) != VK_SUCCESS)
+		VkAttachmentDescription ColorAttachment{};
+		ColorAttachment.format = m_vulkan_rhi->m_swapchain_image_format;
+		ColorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
+		ColorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+		ColorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+		ColorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+		ColorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+		ColorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+		ColorAttachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+
+		VkAttachmentReference ColorAttachmentRef{};
+		ColorAttachmentRef.attachment = 0;
+		ColorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
+		VkSubpassDescription subpass{};
+		subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+		subpass.colorAttachmentCount = 1;
+		subpass.pColorAttachments = &ColorAttachmentRef;
+
+		VkRenderPassCreateInfo RenderPassInfo{};
+		RenderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+		RenderPassInfo.attachmentCount = 1;
+		RenderPassInfo.pAttachments = &ColorAttachment;
+		RenderPassInfo.subpassCount = 1;
+		RenderPassInfo.pSubpasses = &subpass;
+
+		VkSubpassDependency Dependency{};
+		Dependency.srcSubpass = VK_SUBPASS_EXTERNAL;
+		Dependency.dstSubpass = 0;
+		Dependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+		Dependency.srcAccessMask = 0;
+		Dependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+		Dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+
+		RenderPassInfo.dependencyCount = 1;
+		RenderPassInfo.pDependencies = &Dependency;
+
+		if (vkCreateRenderPass(m_vulkan_rhi->m_device, &RenderPassInfo, nullptr, &m_framebuffer.render_pass) != VK_SUCCESS)
 		{
-			throw std::runtime_error("failed to create render pass");
+			throw std::runtime_error("Failed to create render pass!");
 		}
 	}
 }

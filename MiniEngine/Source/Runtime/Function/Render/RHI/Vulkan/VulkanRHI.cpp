@@ -165,7 +165,7 @@ namespace ME
 		if (m_enable_validation_layers)
 		{
 			instance_create_info.enabledLayerCount = static_cast<uint32_t>(m_validation_layers.size());
-			instance_create_info.ppEnabledExtensionNames = m_validation_layers.data();
+			instance_create_info.ppEnabledLayerNames = m_validation_layers.data();
 
 			PopulateDebugMessengerCreateInfo(debugCreateInfo);
 			instance_create_info.pNext = (VkDebugUtilsMessengerCreateInfoEXT*)&debugCreateInfo;
@@ -322,6 +322,7 @@ namespace ME
 		vkGetDeviceQueue(m_device, m_queue_indices.m_graphics_family.value(), 0, &m_graphics_queue);
 		vkGetDeviceQueue(m_device, m_queue_indices.m_present_family.value(), 0, &m_present_queue);
 
+		m_depth_image_format = FindDepthFormat();
 	}
 
 	void VulkanRHI::CreateCommandPool()
@@ -346,7 +347,15 @@ namespace ME
 			command_pool_create_info.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 			command_pool_create_info.pNext = NULL;
 			command_pool_create_info.flags = VK_COMMAND_POOL_CREATE_TRANSIENT_BIT;
+			command_pool_create_info.queueFamilyIndex = m_queue_indices.m_graphics_family.value();
 
+			for (uint32_t i = 0; i < m_max_frames_in_flight; i++)
+			{
+				if (vkCreateCommandPool(m_device, &command_pool_create_info, NULL, &m_command_pools[i]) != VK_SUCCESS)
+				{
+					throw std::runtime_error("Failed to create command pool");
+				}
+			}
 		}
 	}
 
@@ -703,6 +712,35 @@ namespace ME
 
 		return details_result;
 		
+	}
+
+	VkFormat VulkanRHI::FindDepthFormat()
+	{
+		return FindSupportedFormat({ VK_FORMAT_D32_SFLOAT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT },
+									VK_IMAGE_TILING_OPTIMAL,
+									VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
+	}
+
+	VkFormat VulkanRHI::FindSupportedFormat(const std::vector<VkFormat>& candiates,
+											VkImageTiling					tiling,
+											VkFormatFeatureFlags			features)
+	{
+		for (VkFormat format : candiates)
+		{
+			VkFormatProperties props;
+			vkGetPhysicalDeviceFormatProperties(m_physical_device, format, &props);
+
+			if (tiling == VK_IMAGE_TILING_LINEAR && (props.linearTilingFeatures & features) == features)
+			{
+				return format;
+			}
+			else if (tiling == VK_IMAGE_TILING_OPTIMAL && (props.optimalTilingFeatures & features) == features)
+			{
+				return format;
+			}
+		}
+
+		throw std::runtime_error("Failed to find supported format!");
 	}
 
 	VkSurfaceFormatKHR VulkanRHI::ChooseSwapchainSurfaceFormatFromDetails(const std::vector<VkSurfaceFormatKHR>& available_surface_fromats)

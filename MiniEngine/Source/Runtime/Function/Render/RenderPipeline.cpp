@@ -11,10 +11,17 @@ namespace ME
 		m_main_camera_pass	= std::make_shared<MainCameraPass>();
 		m_ui_pass			= std::make_shared<UIPass>();
 		
-		std::shared_ptr<MainCameraPass> main_camera_pass = std::static_pointer_cast<MainCameraPass>(m_main_camera_pass);
-		std::shared_ptr<RenderPass> _main_camera_pass = std::static_pointer_cast<RenderPass>(m_main_camera_pass);
+		RenderPassCommonInfo pass_common_info;
+		pass_common_info.rhi = m_rhi;
+		pass_common_info.render_resource = init_info.render_resource;
 
-		main_camera_pass->Initialize(nullptr);
+		//std::shared_ptr<MainCameraPass> main_camera_pass = std::static_pointer_cast<MainCameraPass>(m_main_camera_pass);
+		//std::shared_ptr<RenderPass> _main_camera_pass = std::static_pointer_cast<RenderPass>(m_main_camera_pass);
+
+		m_main_camera_pass->SetCommonInfo(pass_common_info);
+		m_ui_pass->SetCommonInfo(pass_common_info);
+
+		m_main_camera_pass->Initialize(nullptr);
 
 		UIPassInitInfo ui_init_info;
 		//ui_init_info.render_pass 

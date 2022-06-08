@@ -24,6 +24,7 @@ namespace ME
 	public:
 		virtual void Initialize(const RenderPassInitInfo* init_info) = 0;
 		virtual void PostInitialize();
+		virtual void SetCommonInfo(RenderPassCommonInfo common_info);
 		virtual void PreparePassData(std::shared_ptr<RenderResourceBase> render_resource);
 		virtual void InitializeUIRenderBackend(WindowUI* window_ui);
 

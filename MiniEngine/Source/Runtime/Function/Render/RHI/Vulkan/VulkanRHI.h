@@ -73,6 +73,11 @@ namespace ME
 		bool IsDeviceSuitable(VkPhysicalDevice physical_device);
 		SwapChainSupportDetails QuerySwapchainSupport(VkPhysicalDevice physical_device);
 
+		VkFormat FindDepthFormat();
+		VkFormat FindSupportedFormat(const std::vector<VkFormat>&	candiates,
+									 VkImageTiling					tiling,
+									 VkFormatFeatureFlags			features);
+
 		VkSurfaceFormatKHR ChooseSwapchainSurfaceFormatFromDetails(const std::vector<VkSurfaceFormatKHR>& available_surface_formats);
 		VkPresentModeKHR ChooseSwapchainPresentModeFromDetails(const std::vector<VkPresentModeKHR>& available_present_modes);
 		VkExtent2D ChooseSwapchainExtentFromDetails(const VkSurfaceCapabilitiesKHR& capabilities);
