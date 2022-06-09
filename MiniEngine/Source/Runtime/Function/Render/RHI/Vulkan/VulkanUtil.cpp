@@ -2,6 +2,7 @@
 #include "VulkanRHI.h"
 
 #include <stdexcept>
+#include <fstream>
 
 namespace ME
 {
@@ -21,6 +22,23 @@ namespace ME
 		}
 
 		throw std::runtime_error("Failed to find memory type");
+	}
+
+
+	VkShaderModule VulkanUtil::CreateShaderModule(VkDevice device, const std::vector<char>& shader_code) 
+	{
+		VkShaderModuleCreateInfo shader_module_create_info{};
+		shader_module_create_info.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+		shader_module_create_info.codeSize = shader_code.size();
+		shader_module_create_info.pCode = reinterpret_cast<const uint32_t*>(shader_code.data());
+
+		VkShaderModule shader_module;
+		if (vkCreateShaderModule(device, &shader_module_create_info, nullptr, &shader_module) != VK_SUCCESS)
+		{
+			return VK_NULL_HANDLE;
+		}
+
+		return shader_module;
 	}
 
 
@@ -101,5 +119,25 @@ namespace ME
 		}
 
 		return image_view;
+	}
+
+	std::vector<char> VulkanUtil::ReadFile(const std::string& filename)
+	{
+		std::ifstream file(filename, std::ios::ate | std::ios::binary);
+
+		if (!file.is_open())
+		{
+			throw std::runtime_error("failed to open file!");
+		}
+
+		size_t fileSize = (size_t)file.tellg();
+		std::vector<char> buffer(fileSize);
+
+		file.seekg(0);
+		file.read(buffer.data(), fileSize);
+
+		file.close();
+
+		return buffer;
 	}
 }

@@ -55,8 +55,15 @@ namespace ME
 			std::vector<FrameBufferAttachment> attachments;
 		};
 
+		struct RenderPipelineBase
+		{
+			VkPipelineLayout	layout;
+			VkPipeline			pipeline;
+		};
+
 		std::shared_ptr<VulkanRHI> m_vulkan_rhi{ nullptr };
 		
+		std::vector<RenderPipelineBase> m_render_pipelines;
 		Framebuffer m_framebuffer;
 
 		void Initialize(const RenderPassInitInfo* init_info) override;

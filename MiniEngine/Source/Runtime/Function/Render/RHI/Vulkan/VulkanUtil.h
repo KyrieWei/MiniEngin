@@ -2,6 +2,9 @@
 
 #include "Runtime/Function/Render/RHI.h"
 
+#include <vector>
+#include <string>
+
 namespace ME
 {
 	class VulkanUtil
@@ -11,6 +14,8 @@ namespace ME
 		static uint32_t		FindMemoryType(VkPhysicalDevice			physical_device,
 										   uint32_t					type_filter,
 										   VkMemoryPropertyFlags	properties_flag);
+
+		static VkShaderModule CreateShaderModule(VkDevice device, const std::vector<char>& shader_code);
 
 		static void			CreateImage(VkPhysicalDevice		physical_device,
 										VkDevice				device,
@@ -34,6 +39,6 @@ namespace ME
 											uint32_t			layout_count,
 											uint32_t			miplevels);
 
-
+		static std::vector<char> ReadFile(const std::string& filename);
 	};
 }

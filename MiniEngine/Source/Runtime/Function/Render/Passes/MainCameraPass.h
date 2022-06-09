@@ -22,6 +22,8 @@ namespace ME
 	private:
 		void SetupAttachments();
 		void SetupRenderPass();
+		void SetupPipelines();
+
 	private:
 		std::vector<VkFramebuffer> m_swapchain_framebuffers;
 	};

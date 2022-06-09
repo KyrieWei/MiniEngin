@@ -1,6 +1,7 @@
 #include "MainCameraPass.h"
 
 #include "Runtime/Function/Render/RHI/Vulkan/VulkanRHI.h"
+#include "Runtime/Function/Render/RHI/Vulkan/VulkanUtil.h"
 
 #include <stdexcept>
 
@@ -132,5 +133,87 @@ namespace ME
 		{
 			throw std::runtime_error("Failed to create render pass!");
 		}
+	}
+
+	void MainCameraPass::SetupPipelines()
+	{
+		m_render_pipelines.resize(1);
+
+		VkPipelineLayoutCreateInfo pipeline_layout_create_info{};
+		pipeline_layout_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+		pipeline_layout_create_info.setLayoutCount = 0;
+		pipeline_layout_create_info.pSetLayouts = nullptr;
+		pipeline_layout_create_info.pushConstantRangeCount = 0;
+		pipeline_layout_create_info.pPushConstantRanges = nullptr;
+
+		if (vkCreatePipelineLayout(m_vulkan_rhi->m_device, &pipeline_layout_create_info, nullptr, &m_render_pipelines[0].layout) != VK_SUCCESS)
+		{
+			throw std::runtime_error("Failed to create pipeline layout!");
+		}
+
+
+		auto MESH_VERT = VulkanUtil::ReadFile("vert.spv");
+		auto MESH_FRAG = VulkanUtil::ReadFile("frag.spv");
+		VkShaderModule vert_shader_module = VulkanUtil::CreateShaderModule(m_vulkan_rhi->m_device, MESH_VERT);
+		VkShaderModule frag_shader_module = VulkanUtil::CreateShaderModule(m_vulkan_rhi->m_device, MESH_FRAG);
+
+		VkPipelineShaderStageCreateInfo vert_pipeline_shader_stage_create_info{};
+		vert_pipeline_shader_stage_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+		vert_pipeline_shader_stage_create_info.stage = VK_SHADER_STAGE_VERTEX_BIT;
+		vert_pipeline_shader_stage_create_info.module = vert_shader_module;
+		vert_pipeline_shader_stage_create_info.pName = "main";
+
+		VkPipelineShaderStageCreateInfo frag_pipeline_shader_stage_create_info{};
+		frag_pipeline_shader_stage_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+		frag_pipeline_shader_stage_create_info.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+		frag_pipeline_shader_stage_create_info.module = frag_shader_module;
+		frag_pipeline_shader_stage_create_info.pName = "main";
+
+		VkPipelineShaderStageCreateInfo shader_stages[] = { vert_pipeline_shader_stage_create_info,
+															frag_pipeline_shader_stage_create_info };
+
+		VkPipelineVertexInputStateCreateInfo vertex_input_info{};
+		vertex_input_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+		vertex_input_info.vertexBindingDescriptionCount = 0;
+		vertex_input_info.pVertexBindingDescriptions = nullptr;
+		vertex_input_info.vertexAttributeDescriptionCount = 0;
+		vertex_input_info.pVertexAttributeDescriptions = nullptr;
+
+		VkPipelineInputAssemblyStateCreateInfo input_assembly;
+		input_assembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+		input_assembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+		input_assembly.primitiveRestartEnable = VK_FALSE;
+
+		VkPipelineViewportStateCreateInfo viewport_state_create_info{};
+		viewport_state_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+		viewport_state_create_info.viewportCount = 1;
+		viewport_state_create_info.pViewports = &m_vulkan_rhi->m_viewport;
+		viewport_state_create_info.scissorCount = 1;
+		viewport_state_create_info.pScissors = &m_vulkan_rhi->m_scissor;
+
+		VkPipelineRasterizationStateCreateInfo rasterization_state_create_info{};
+		rasterization_state_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+		rasterization_state_create_info.depthClampEnable = VK_FALSE;
+		rasterization_state_create_info.rasterizerDiscardEnable = VK_FALSE;
+		rasterization_state_create_info.polygonMode = VK_POLYGON_MODE_FILL;
+		rasterization_state_create_info.lineWidth = 1.0f;
+		rasterization_state_create_info.cullMode = VK_CULL_MODE_BACK_BIT;
+		rasterization_state_create_info.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
+		rasterization_state_create_info.depthBiasEnable = VK_FALSE;
+		rasterization_state_create_info.depthBiasConstantFactor = 0.0f;
+		rasterization_state_create_info.depthBiasClamp = 0.0f;
+		rasterization_state_create_info.depthBiasSlopeFactor = 0.0f;
+
+		VkPipelineMultisampleStateCreateInfo multisample_state_create_info{};
+		multisample_state_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+		multisample_state_create_info.sampleShadingEnable = VK_FALSE;
+		multisample_state_create_info.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+
+		VkPipelineColorBlendAttachmentState color_blend_attachments{};
+		color_blend_attachments.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
+												 VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+		color_blend_attachments.blendEnable = VK_FALSE;
+
+
 	}
 }
