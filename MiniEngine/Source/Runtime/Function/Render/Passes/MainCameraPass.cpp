@@ -13,6 +13,8 @@ namespace ME
 
 		SetupAttachments();
 		SetupRenderPass();
+		SetupPipelines();
+		SetupSwapchainFramebuffers();
 	}
 
 	void MainCameraPass::PreparePassData(std::shared_ptr<RenderResourceBase> render_resource)
@@ -93,14 +95,14 @@ namespace ME
 		*/
 
 		VkAttachmentDescription ColorAttachment{};
-		ColorAttachment.format = m_vulkan_rhi->m_swapchain_image_format;
-		ColorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
-		ColorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-		ColorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-		ColorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-		ColorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-		ColorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-		ColorAttachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+		ColorAttachment.format			= m_vulkan_rhi->m_swapchain_image_format;
+		ColorAttachment.samples			= VK_SAMPLE_COUNT_1_BIT;
+		ColorAttachment.loadOp			= VK_ATTACHMENT_LOAD_OP_CLEAR;
+		ColorAttachment.storeOp			= VK_ATTACHMENT_STORE_OP_STORE;
+		ColorAttachment.stencilLoadOp	= VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+		ColorAttachment.stencilStoreOp	= VK_ATTACHMENT_STORE_OP_DONT_CARE;
+		ColorAttachment.initialLayout	= VK_IMAGE_LAYOUT_UNDEFINED;
+		ColorAttachment.finalLayout		= VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
 		VkAttachmentReference ColorAttachmentRef{};
 		ColorAttachmentRef.attachment = 0;
@@ -172,17 +174,19 @@ namespace ME
 		VkPipelineShaderStageCreateInfo shader_stages[] = { vert_pipeline_shader_stage_create_info,
 															frag_pipeline_shader_stage_create_info };
 
-		VkPipelineVertexInputStateCreateInfo vertex_input_info{};
-		vertex_input_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-		vertex_input_info.vertexBindingDescriptionCount = 0;
-		vertex_input_info.pVertexBindingDescriptions = nullptr;
-		vertex_input_info.vertexAttributeDescriptionCount = 0;
-		vertex_input_info.pVertexAttributeDescriptions = nullptr;
+		VkPipelineVertexInputStateCreateInfo vertex_input_state_create_info{};
+		vertex_input_state_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+		vertex_input_state_create_info.vertexBindingDescriptionCount = 0;
+		vertex_input_state_create_info.pVertexBindingDescriptions = nullptr;
+		vertex_input_state_create_info.vertexAttributeDescriptionCount = 0;
+		vertex_input_state_create_info.pVertexAttributeDescriptions = nullptr;
 
-		VkPipelineInputAssemblyStateCreateInfo input_assembly;
-		input_assembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-		input_assembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
-		input_assembly.primitiveRestartEnable = VK_FALSE;
+		VkPipelineInputAssemblyStateCreateInfo input_assembly_create_info;
+		input_assembly_create_info.sType	= VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+		input_assembly_create_info.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+		input_assembly_create_info.primitiveRestartEnable = VK_FALSE;
+		input_assembly_create_info.pNext	= nullptr;
+		input_assembly_create_info.flags	= 0;
 
 		VkPipelineViewportStateCreateInfo viewport_state_create_info{};
 		viewport_state_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
@@ -212,8 +216,128 @@ namespace ME
 		VkPipelineColorBlendAttachmentState color_blend_attachments{};
 		color_blend_attachments.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
 												 VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-		color_blend_attachments.blendEnable = VK_FALSE;
+		color_blend_attachments.blendEnable			= VK_FALSE;
+		color_blend_attachments.srcColorBlendFactor = VK_BLEND_FACTOR_ONE;
+		color_blend_attachments.dstColorBlendFactor = VK_BLEND_FACTOR_ONE;
+		color_blend_attachments.colorBlendOp		= VK_BLEND_OP_ADD;
+		color_blend_attachments.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+		color_blend_attachments.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+		color_blend_attachments.alphaBlendOp		= VK_BLEND_OP_ADD;
 
+		VkPipelineColorBlendStateCreateInfo color_blend_state_create_info{};
+		color_blend_state_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+		color_blend_state_create_info.logicOpEnable = VK_FALSE;
+		color_blend_state_create_info.logicOp = VK_LOGIC_OP_COPY;
+		color_blend_state_create_info.attachmentCount = 1;
+		color_blend_state_create_info.pAttachments = &color_blend_attachments;
+		color_blend_state_create_info.blendConstants[0] = 0.0f;
+		color_blend_state_create_info.blendConstants[1] = 0.0f;
+		color_blend_state_create_info.blendConstants[2] = 0.0f;
+		color_blend_state_create_info.blendConstants[3] = 0.0f;
+
+		VkDynamicState dynamic_states[] =
+		{
+			VK_DYNAMIC_STATE_VIEWPORT,
+			VK_DYNAMIC_STATE_SCISSOR
+		};
+
+		VkPipelineDynamicStateCreateInfo dynamic_state_create_info{};
+		dynamic_state_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+		dynamic_state_create_info.dynamicStateCount = 2;
+		dynamic_state_create_info.pDynamicStates = dynamic_states;
+
+		VkGraphicsPipelineCreateInfo pipeline_create_info{};
+		pipeline_create_info.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+		pipeline_create_info.stageCount = 2;
+		pipeline_create_info.pStages = shader_stages;
+		pipeline_create_info.pVertexInputState = &vertex_input_state_create_info;
+		pipeline_create_info.pInputAssemblyState = &input_assembly_create_info;
+		pipeline_create_info.pViewportState = &viewport_state_create_info;
+		pipeline_create_info.pRasterizationState = &rasterization_state_create_info;
+		pipeline_create_info.pMultisampleState = &multisample_state_create_info;
+		pipeline_create_info.pColorBlendState = &color_blend_state_create_info;
+		pipeline_create_info.pDepthStencilState = nullptr;
+		pipeline_create_info.layout = m_render_pipelines[0].layout;
+		pipeline_create_info.renderPass = m_framebuffer.render_pass;
+		pipeline_create_info.subpass = 0;
+		pipeline_create_info.basePipelineHandle = VK_NULL_HANDLE;
+		pipeline_create_info.basePipelineIndex = -1;
+		pipeline_create_info.pDynamicState = nullptr;
+
+		if (vkCreateGraphicsPipelines(	m_vulkan_rhi->m_device,
+										VK_NULL_HANDLE,
+										1,
+										&pipeline_create_info,
+										nullptr,
+										&m_render_pipelines[0].pipeline) != VK_SUCCESS)
+		{
+			throw std::runtime_error("Failed to create graphics pipeline");
+		}
+
+		vkDestroyShaderModule(m_vulkan_rhi->m_device, vert_shader_module, nullptr);
+		vkDestroyShaderModule(m_vulkan_rhi->m_device, frag_shader_module, nullptr);
+	}
+
+	void MainCameraPass::SetupSwapchainFramebuffers()
+	{
+		m_swapchain_framebuffers.resize(m_vulkan_rhi->m_swapchain_imageviews.size());
+
+		// create frame buffer for every imageview
+		for (size_t i = 0; i < m_vulkan_rhi->m_swapchain_imageviews.size(); i++)
+		{
+			VkImageView framebuffer_attachments_for_image_view[] = { m_vulkan_rhi->m_swapchain_imageviews[i] };
+
+			VkFramebufferCreateInfo framebuffer_create_info{};
+			framebuffer_create_info.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+			framebuffer_create_info.renderPass = m_framebuffer.render_pass;
+			framebuffer_create_info.attachmentCount = 1;
+			framebuffer_create_info.pAttachments = framebuffer_attachments_for_image_view;
+			framebuffer_create_info.width = m_vulkan_rhi->m_swapchain_extent.width;
+			framebuffer_create_info.height = m_vulkan_rhi->m_swapchain_extent.height;
+			framebuffer_create_info.layers = 1;
+
+			if (vkCreateFramebuffer(m_vulkan_rhi->m_device, &framebuffer_create_info, nullptr, &m_swapchain_framebuffers[i]) != VK_SUCCESS)
+			{
+				throw std::runtime_error("Failed to create framebuffer!");
+			}
+		}
+	} 
+
+	void MainCameraPass::Draw(	UIPass& ui_pass,
+								uint32_t current_swapchain_image_index)
+	{
+		{
+			VkRenderPassBeginInfo renderpass_begin_info{};
+			renderpass_begin_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+			renderpass_begin_info.renderPass = m_framebuffer.render_pass;
+			renderpass_begin_info.framebuffer = m_swapchain_framebuffers[current_swapchain_image_index];
+			renderpass_begin_info.renderArea.offset = { 0, 0 };
+			renderpass_begin_info.renderArea.extent = m_vulkan_rhi->m_swapchain_extent;
+
+			VkClearValue clear_values = { 0.0f, 0.0f, 0.0f, 1.0f };
+			renderpass_begin_info.clearValueCount = 1;
+			renderpass_begin_info.pClearValues = &clear_values;
+
+			m_vulkan_rhi->m_vk_cmd_begin_render_pass(m_vulkan_rhi->m_current_command_buffer, &renderpass_begin_info, VK_SUBPASS_CONTENTS_INLINE);
+
+			m_vulkan_rhi->m_vk_cmd_bind_pipeline(m_vulkan_rhi->m_current_command_buffer,
+													VK_PIPELINE_BIND_POINT_GRAPHICS,
+													m_render_pipelines[0].pipeline);
+
+			vkCmdDraw(m_vulkan_rhi->m_current_command_buffer, 3, 1, 0, 0);
+
+			m_vulkan_rhi->m_vk_cmd_end_render_pass(m_vulkan_rhi->m_current_command_buffer);
+
+			if (m_vulkan_rhi->m_vk_end_command_buffer(m_vulkan_rhi->m_current_command_buffer) != VK_SUCCESS)
+			{
+				throw std::runtime_error("Failed to record command buffer!");
+			}
+		}
+	}
+
+	void MainCameraPass::DrawForward(UIPass& ui_pass,
+									 uint32_t current_swapchain_image_index)
+	{
 
 	}
 }

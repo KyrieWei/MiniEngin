@@ -34,13 +34,35 @@ namespace ME
 
 		UIPass& ui_pass = *(static_cast<UIPass*>(m_ui_pass.get()));
 
-		
+		vulkan_rhi->WaitForFences();
+		bool recreate_swapchain = vulkan_rhi->PrepareBeforePass();
+		if (recreate_swapchain)
+		{
+			return;
+		}
+
+		static_cast<MainCameraPass*>(m_main_camera_pass.get())->DrawForward(ui_pass, vulkan_rhi->m_current_swapchain_image_index);
+
+		vulkan_rhi->SubmitRendering();
 	}
 
 	void RenderPipeline::DeferredRender(std::shared_ptr<RHI> rhi, std::shared_ptr<RenderResourceBase> render_resource)
 	{
 		VulkanRHI* vulkan_rhi = static_cast<VulkanRHI*>(rhi.get());
 
-		
+		vulkan_rhi->WaitForFences();
+
+		bool recreate_swapchain = vulkan_rhi->PrepareBeforePass();
+		if (recreate_swapchain)
+		{
+			return;
+		}
+
+		UIPass& ui_pass = *(static_cast<UIPass*>(m_ui_pass.get()));
+
+		static_cast<MainCameraPass*>(m_main_camera_pass.get())
+			->Draw(ui_pass, vulkan_rhi->m_current_swapchain_image_index);
+
+		vulkan_rhi->SubmitRendering();
 	}
 }

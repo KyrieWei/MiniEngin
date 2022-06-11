@@ -23,6 +23,9 @@ namespace ME
 		void SetupAttachments();
 		void SetupRenderPass();
 		void SetupPipelines();
+		void SetupDescriptorSet();
+		void SetupFramebufferDescriptorSet();
+		void SetupSwapchainFramebuffers();
 
 	private:
 		std::vector<VkFramebuffer> m_swapchain_framebuffers;

@@ -69,6 +69,129 @@ namespace ME
 
 	}
 
+	void VulkanRHI::Clear()
+	{
+		
+	}
+
+	void VulkanRHI::WaitForFences()
+	{
+		VkResult res_wait_for_fences =
+			m_vk_wait_for_fences(m_device, 1, &m_is_frame_in_flight_fences[m_current_frame_index], VK_TRUE, UINT64_MAX);
+		if (res_wait_for_fences != VK_SUCCESS)
+		{
+			throw std::runtime_error("Failed to synchronize");
+		}
+	}
+
+	bool VulkanRHI::PrepareBeforePass()
+	{
+		VkResult acquire_image_result = 
+			vkAcquireNextImageKHR(m_device,
+									m_swapchain,
+									UINT64_MAX,
+									m_image_available_for_render_semaphores[m_current_frame_index],
+									VK_NULL_HANDLE,
+									&m_current_swapchain_image_index);
+		
+		if (VK_ERROR_OUT_OF_DATE_KHR == acquire_image_result)
+		{
+			RecreateSwapchain();
+			return true;
+		}
+		else if (VK_SUBOPTIMAL_KHR == acquire_image_result)
+		{
+			RecreateSwapchain();
+
+			// NULL submit to wait semaphore
+			VkPipelineStageFlags wait_stages[] = { VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT };
+			VkSubmitInfo submit_info = {};
+			submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+			submit_info.waitSemaphoreCount = 1;
+			submit_info.pWaitSemaphores = &m_image_available_for_render_semaphores[m_current_frame_index];
+			submit_info.pWaitDstStageMask = wait_stages;
+			submit_info.commandBufferCount = 0;
+			submit_info.pCommandBuffers = NULL;
+			submit_info.signalSemaphoreCount = 0;
+			submit_info.pSignalSemaphores = NULL;
+
+			VkResult res_reset_fences = m_vk_reset_fences(m_device, 1, &m_is_frame_in_flight_fences[m_current_frame_index]);
+			assert(VK_SUCCESS == res_reset_fences);
+
+			VkResult res_queue_submit =
+				vkQueueSubmit(m_graphics_queue, 1, &submit_info, m_is_frame_in_flight_fences[m_current_frame_index]);
+			assert(VK_SUCCESS == res_queue_submit);
+
+			m_current_frame_index = (m_current_frame_index + 1) % m_max_frames_in_flight;
+			
+			return true;
+		}
+		else
+		{
+			assert(VK_SUCCESS == acquire_image_result);
+		}
+
+		// begin command buffer
+		VkCommandBufferBeginInfo command_buffer_begin_info{};
+		command_buffer_begin_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+		command_buffer_begin_info.flags = 0;
+		command_buffer_begin_info.pInheritanceInfo = nullptr;
+
+		VkResult res_begin_command_buffer =
+			m_vk_begin_command_buffer(m_command_buffers[m_current_frame_index], &command_buffer_begin_info);
+		assert(VK_SUCCESS == res_begin_command_buffer);
+
+		return false;
+	}
+
+	void VulkanRHI::SubmitRendering()
+	{
+		// end command buffer
+		VkResult res_end_command_buffer = m_vk_end_command_buffer(m_command_buffers[m_current_frame_index]);
+		assert(VK_SUCCESS == res_end_command_buffer);
+
+		// submit command buffer
+		VkPipelineStageFlags wait_stages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+		VkSubmitInfo submit_info = {};
+		submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+		submit_info.waitSemaphoreCount = 1;
+		submit_info.pWaitSemaphores = &m_image_available_for_render_semaphores[m_current_frame_index];
+		submit_info.pWaitDstStageMask = wait_stages; 
+		submit_info.commandBufferCount = 1;
+		submit_info.pCommandBuffers = &m_command_buffers[m_current_frame_index];
+		submit_info.signalSemaphoreCount = 1;
+		submit_info.pSignalSemaphores = &m_image_finished_for_presentation_semaphores[m_current_frame_index];
+
+		VkResult res_reset_fences = m_vk_reset_fences(m_device, 1, &m_is_frame_in_flight_fences[m_current_frame_index]);
+		assert(VK_SUCCESS == res_reset_fences);
+
+		VkResult res_queue_submit =
+			vkQueueSubmit(m_graphics_queue, 1, &submit_info, m_is_frame_in_flight_fences[m_current_frame_index]);
+		assert(VK_SUCCESS == res_queue_submit);
+
+		// present swapchain
+		VkPresentInfoKHR present_info = {};
+		present_info.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+		present_info.waitSemaphoreCount = 1;
+		present_info.pWaitSemaphores = &m_image_finished_for_presentation_semaphores[m_current_frame_index];
+		present_info.swapchainCount = 1;
+		present_info.pSwapchains = &m_swapchain;
+		present_info.pImageIndices = &m_current_swapchain_image_index;
+
+		VkResult present_result = vkQueuePresentKHR(m_present_queue, &present_info);
+		if (VK_ERROR_OUT_OF_DATE_KHR == present_result || VK_SUBOPTIMAL_KHR == present_result)
+		{
+			RecreateSwapchain();
+
+		}
+		else
+		{
+			assert(VK_SUCCESS == present_result);
+		}
+
+		m_current_frame_index = (m_current_frame_index + 1) % m_max_frames_in_flight;
+	}
+
 	bool VulkanRHI::CheckValidationLayerSupport()
 	{
 		uint32_t layerCount;
@@ -145,35 +268,35 @@ namespace ME
 
 		// app info
 		VkApplicationInfo appInfo{};
-		appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-		appInfo.pApplicationName = "MiniEngine_Renderer";
-		appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-		appInfo.pEngineName = "MiniEngine";
-		appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
-		appInfo.apiVersion = m_vulkan_api_version;
+		appInfo.sType				= VK_STRUCTURE_TYPE_APPLICATION_INFO;
+		appInfo.pApplicationName	= "MiniEngine_Renderer";
+		appInfo.applicationVersion	= VK_MAKE_VERSION(1, 0, 0);
+		appInfo.pEngineName			= "MiniEngine";
+		appInfo.engineVersion		= VK_MAKE_VERSION(1, 0, 0);
+		appInfo.apiVersion			= m_vulkan_api_version;
 
 		// create info
 		VkInstanceCreateInfo instance_create_info{};
-		instance_create_info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-		instance_create_info.pApplicationInfo = &appInfo;
+		instance_create_info.sType				= VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+		instance_create_info.pApplicationInfo	= &appInfo;
 
-		auto extensions = GetRequiredExtensions();
-		instance_create_info.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
+		auto extensions								 = GetRequiredExtensions();
+		instance_create_info.enabledExtensionCount	 = static_cast<uint32_t>(extensions.size());
 		instance_create_info.ppEnabledExtensionNames = extensions.data();
 
 		VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo{};
 		if (m_enable_validation_layers)
 		{
-			instance_create_info.enabledLayerCount = static_cast<uint32_t>(m_validation_layers.size());
-			instance_create_info.ppEnabledLayerNames = m_validation_layers.data();
+			instance_create_info.enabledLayerCount		= static_cast<uint32_t>(m_validation_layers.size());
+			instance_create_info.ppEnabledLayerNames	= m_validation_layers.data();
 
 			PopulateDebugMessengerCreateInfo(debugCreateInfo);
-			instance_create_info.pNext = (VkDebugUtilsMessengerCreateInfoEXT*)&debugCreateInfo;
+			instance_create_info.pNext					= (VkDebugUtilsMessengerCreateInfoEXT*)&debugCreateInfo;
 		}
 		else
 		{
-			instance_create_info.enabledLayerCount = 0;
-			instance_create_info.pNext = nullptr;
+			instance_create_info.enabledLayerCount	= 0;
+			instance_create_info.pNext				= nullptr;
 		}
 
 		// create m_vulkan_context._instance
@@ -199,7 +322,7 @@ namespace ME
 		if (m_enable_debug_utils_label)
 		{
 			m_vk_cmd_begin_debug_utils_label_ext =
-				(PFN_vkCmdBeginDebugUtilsLabelEXT)vkGetInstanceProcAddr(m_instance, "vkCmdBeginUtilsLabelEXT");
+				(PFN_vkCmdBeginDebugUtilsLabelEXT)vkGetInstanceProcAddr(m_instance, "vkCmdBeginDebugUtilsLabelEXT");
 			m_vk_cmd_end_debug_utils_label_ext =
 				(PFN_vkCmdEndDebugUtilsLabelEXT)vkGetInstanceProcAddr(m_instance, "vkCmdEndDebugUtilsLabelEXT");
 		}
@@ -292,16 +415,16 @@ namespace ME
 
 		// physical device features
 		VkPhysicalDeviceFeatures physical_device_features = {};
-		physical_device_features.samplerAnisotropy = VK_TRUE;
+		//physical_device_features.samplerAnisotropy = VK_TRUE;
 
 		// support inefficient readback storage buffer
-		physical_device_features.fragmentStoresAndAtomics = VK_TRUE;
+		//physical_device_features.fragmentStoresAndAtomics = VK_TRUE;
 
 		// support independent blending
-		physical_device_features.independentBlend = VK_TRUE;
+		//physical_device_features.independentBlend = VK_TRUE;
 
 		// support geometry shader
-		physical_device_features.geometryShader = VK_TRUE;
+		//physical_device_features.geometryShader = VK_TRUE;
 
 		// device create info
 		VkDeviceCreateInfo device_create_info{};
@@ -309,6 +432,7 @@ namespace ME
 		device_create_info.pQueueCreateInfos = queue_create_infos.data();
 		device_create_info.queueCreateInfoCount = static_cast<uint32_t>(queue_create_infos.size());
 		device_create_info.pEnabledFeatures = &physical_device_features;
+
 		device_create_info.enabledExtensionCount = static_cast<uint32_t>(m_device_extensions.size());
 		device_create_info.ppEnabledExtensionNames = m_device_extensions.data();
 		device_create_info.enabledLayerCount = 0;
@@ -321,6 +445,15 @@ namespace ME
 		// initialize queues of this device
 		vkGetDeviceQueue(m_device, m_queue_indices.m_graphics_family.value(), 0, &m_graphics_queue);
 		vkGetDeviceQueue(m_device, m_queue_indices.m_present_family.value(), 0, &m_present_queue);
+
+		// more efficient pointer
+		m_vk_wait_for_fences = (PFN_vkWaitForFences)vkGetDeviceProcAddr(m_device, "vkWaitForFences");
+		m_vk_reset_fences = (PFN_vkResetFences)vkGetDeviceProcAddr(m_device, "vkResetFences");
+		m_vk_begin_command_buffer = (PFN_vkBeginCommandBuffer)vkGetDeviceProcAddr(m_device, "vkBeginCommandBuffer");
+		m_vk_end_command_buffer = (PFN_vkEndCommandBuffer)vkGetDeviceProcAddr(m_device, "vkEndCommandBuffer");
+		m_vk_cmd_begin_render_pass = (PFN_vkCmdBeginRenderPass)vkGetDeviceProcAddr(m_device, "vkCmdBeginRenderPass");
+		m_vk_cmd_end_render_pass = (PFN_vkCmdEndRenderPass)vkGetDeviceProcAddr(m_device, "vkCmdEndRenderPass");
+		m_vk_cmd_bind_pipeline = (PFN_vkCmdBindPipeline)vkGetDeviceProcAddr(m_device, "vkCmdBindPipeline");
 
 		m_depth_image_format = FindDepthFormat();
 	}
@@ -674,15 +807,17 @@ namespace ME
 			is_swapchain_adequate = !swapchain_support_details.m_formats.empty() && !swapchain_support_details.m_presentModes.empty();
 		}
 
-		VkPhysicalDeviceFeatures physical_device_features;
-		vkGetPhysicalDeviceFeatures(physical_device, &physical_device_features);
+		//VkPhysicalDeviceFeatures physical_device_features;
+		//vkGetPhysicalDeviceFeatures(physical_device, &physical_device_features);
 
-		if (!queue_indices.IsComplete() || !is_swapchain_adequate || !physical_device_features.samplerAnisotropy)
-		{
-			return false;
-		}
+		//if (!queue_indices.IsComplete() || !is_swapchain_adequate || !physical_device_features.samplerAnisotropy)
+		//{
+		//	return false;
+		//}
 
-		return true;
+		//return true;
+
+		return queue_indices.IsComplete() && is_extensions_supported && is_swapchain_adequate;
 	}
 
 	ME::SwapChainSupportDetails VulkanRHI::QuerySwapchainSupport(VkPhysicalDevice physical_device)
@@ -749,7 +884,7 @@ namespace ME
 		{
 			// TODO: select the VK_FORMAT_B8G8R8A8_SRGB surface format
 			// there is no need to do gamma correction in the fragment shader
-			if (surface_format.format == VK_FORMAT_B8G8R8A8_UNORM &&
+			if (surface_format.format == VK_FORMAT_B8G8R8A8_SRGB &&
 				surface_format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)
 			{
 				return surface_format;

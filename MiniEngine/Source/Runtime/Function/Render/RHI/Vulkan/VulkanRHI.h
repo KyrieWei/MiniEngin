@@ -18,7 +18,7 @@ namespace ME
 
 	struct SwapChainSupportDetails
 	{
-		VkSurfaceCapabilitiesKHR		m_capabilities{};
+		VkSurfaceCapabilitiesKHR		m_capabilities;
 		std::vector<VkSurfaceFormatKHR> m_formats;
 		std::vector<VkPresentModeKHR>	m_presentModes;
 	};
@@ -42,6 +42,12 @@ namespace ME
 		// debug utilities label
 		PFN_vkCmdBeginDebugUtilsLabelEXT m_vk_cmd_begin_debug_utils_label_ext;
 		PFN_vkCmdEndDebugUtilsLabelEXT m_vk_cmd_end_debug_utils_label_ext;
+
+		void Clear();
+
+		void WaitForFences();
+		bool PrepareBeforePass();
+		void SubmitRendering();
 
 	private:
 		void CreateInstance();
@@ -111,6 +117,12 @@ namespace ME
 
 		// function pointers
 		PFN_vkWaitForFences m_vk_wait_for_fences;
+		PFN_vkResetFences m_vk_reset_fences;
+		PFN_vkBeginCommandBuffer m_vk_begin_command_buffer;
+		PFN_vkEndCommandBuffer m_vk_end_command_buffer;
+		PFN_vkCmdBeginRenderPass m_vk_cmd_begin_render_pass;
+		PFN_vkCmdEndRenderPass m_vk_cmd_end_render_pass;
+		PFN_vkCmdBindPipeline m_vk_cmd_bind_pipeline;
 
 		// global descriptor pool
 		VkDescriptorPool m_descriptor_pool;
@@ -128,6 +140,8 @@ namespace ME
 		VkCommandBuffer m_current_command_buffer;
 		VkViewport m_viewport;
 		VkRect2D m_scissor;
+
+		uint32_t m_current_swapchain_image_index;
 
 	private:
 		const std::vector<const char*> m_validation_layers = { "VK_LAYER_KHRONOS_validation" };
