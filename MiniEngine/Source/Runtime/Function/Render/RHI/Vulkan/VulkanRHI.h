@@ -137,9 +137,12 @@ namespace ME
 		VkFence m_is_frame_in_flight_fences[m_max_frames_in_flight];
 
 		// set
-		VkCommandBuffer m_current_command_buffer;
-		VkViewport m_viewport;
-		VkRect2D m_scissor;
+		VkCommandBuffer		m_current_command_buffer;
+		uint8_t*			m_p_current_frame_index{ nullptr };
+		VkCommandPool*		m_p_command_pools{ nullptr };
+		VkCommandBuffer*	m_p_command_buffers{ nullptr };
+		VkViewport			m_viewport;
+		VkRect2D			m_scissor;
 
 		uint32_t m_current_swapchain_image_index;
 

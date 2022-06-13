@@ -50,7 +50,7 @@ namespace ME
 	{
 		VulkanRHI* vulkan_rhi = static_cast<VulkanRHI*>(rhi.get());
 
-		vulkan_rhi->WaitForFences();
+		//vulkan_rhi->WaitForFences();
 
 		bool recreate_swapchain = vulkan_rhi->PrepareBeforePass();
 		if (recreate_swapchain)

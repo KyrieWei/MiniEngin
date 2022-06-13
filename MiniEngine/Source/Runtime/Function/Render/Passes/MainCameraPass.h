@@ -27,6 +27,8 @@ namespace ME
 		void SetupFramebufferDescriptorSet();
 		void SetupSwapchainFramebuffers();
 
+		void SetupCommandBuffers();
+
 	private:
 		std::vector<VkFramebuffer> m_swapchain_framebuffers;
 	};

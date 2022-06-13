@@ -47,13 +47,10 @@ namespace ME
 
 		CreateLogicalDevice();
 
-		CreateCommandPool();
 
-		CreateCommandBuffers();
 
-		CreateDescriptorPool();
+		//CreateDescriptorPool();
 
-		CreateSyncPrimitives();
 
 		CreateSwapchain();
 
@@ -61,12 +58,21 @@ namespace ME
 
 		CreateFramebufferImageAndView();
 
-		CreateAssetAllocator();
+		//CreateAssetAllocator();
+
+		CreateCommandPool();
+
+		CreateCommandBuffers();
+
+		CreateSyncPrimitives();
 	}
 
 	void VulkanRHI::PrepareContext()
 	{
-
+		m_p_current_frame_index		= &m_current_frame_index;
+		m_current_command_buffer	= m_command_buffers[m_current_frame_index];
+		m_p_command_buffers			= m_command_buffers;
+		m_p_command_pools			= m_command_pools;
 	}
 
 	void VulkanRHI::Clear()
@@ -93,53 +99,55 @@ namespace ME
 									m_image_available_for_render_semaphores[m_current_frame_index],
 									VK_NULL_HANDLE,
 									&m_current_swapchain_image_index);
+
+		//if (VK_ERROR_OUT_OF_DATE_KHR == acquire_image_result)
+		//{
+		//	//RecreateSwapchain();
+		//	return true;
+		//}
+		//else if (VK_SUBOPTIMAL_KHR == acquire_image_result)
+		//{
+		//	//RecreateSwapchain();
+
+		//	// NULL submit to wait semaphore
+		//	VkPipelineStageFlags wait_stages[] = { VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT };
+		//	VkSubmitInfo submit_info = {};
+		//	submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+		//	submit_info.waitSemaphoreCount = 1;
+		//	submit_info.pWaitSemaphores = &m_image_available_for_render_semaphores[m_current_frame_index];
+		//	submit_info.pWaitDstStageMask = wait_stages;
+		//	submit_info.commandBufferCount = 0;
+		//	submit_info.pCommandBuffers = NULL;
+		//	submit_info.signalSemaphoreCount = 0;
+		//	submit_info.pSignalSemaphores = NULL;
+
+		//	VkResult res_reset_fences = m_vk_reset_fences(m_device, 1, &m_is_frame_in_flight_fences[m_current_frame_index]);
+		//	assert(VK_SUCCESS == res_reset_fences);
+
+		//	VkResult res_queue_submit =
+		//		vkQueueSubmit(m_graphics_queue, 1, &submit_info, m_is_frame_in_flight_fences[m_current_frame_index]);
+		//	assert(VK_SUCCESS == res_queue_submit);
+
+		//	m_current_frame_index = (m_current_frame_index + 1) % m_max_frames_in_flight;
+		//	
+		//	return true;
+		//}
+		//else
+		//{
+		//	assert(VK_SUCCESS == acquire_image_result);
+		//}
+
 		
-		if (VK_ERROR_OUT_OF_DATE_KHR == acquire_image_result)
-		{
-			RecreateSwapchain();
-			return true;
-		}
-		else if (VK_SUBOPTIMAL_KHR == acquire_image_result)
-		{
-			RecreateSwapchain();
-
-			// NULL submit to wait semaphore
-			VkPipelineStageFlags wait_stages[] = { VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT };
-			VkSubmitInfo submit_info = {};
-			submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-			submit_info.waitSemaphoreCount = 1;
-			submit_info.pWaitSemaphores = &m_image_available_for_render_semaphores[m_current_frame_index];
-			submit_info.pWaitDstStageMask = wait_stages;
-			submit_info.commandBufferCount = 0;
-			submit_info.pCommandBuffers = NULL;
-			submit_info.signalSemaphoreCount = 0;
-			submit_info.pSignalSemaphores = NULL;
-
-			VkResult res_reset_fences = m_vk_reset_fences(m_device, 1, &m_is_frame_in_flight_fences[m_current_frame_index]);
-			assert(VK_SUCCESS == res_reset_fences);
-
-			VkResult res_queue_submit =
-				vkQueueSubmit(m_graphics_queue, 1, &submit_info, m_is_frame_in_flight_fences[m_current_frame_index]);
-			assert(VK_SUCCESS == res_queue_submit);
-
-			m_current_frame_index = (m_current_frame_index + 1) % m_max_frames_in_flight;
-			
-			return true;
-		}
-		else
-		{
-			assert(VK_SUCCESS == acquire_image_result);
-		}
 
 		// begin command buffer
-		VkCommandBufferBeginInfo command_buffer_begin_info{};
-		command_buffer_begin_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-		command_buffer_begin_info.flags = 0;
-		command_buffer_begin_info.pInheritanceInfo = nullptr;
+		//VkCommandBufferBeginInfo command_buffer_begin_info{};
+		//command_buffer_begin_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+		//command_buffer_begin_info.flags = 0;
+		//command_buffer_begin_info.pInheritanceInfo = nullptr;
 
-		VkResult res_begin_command_buffer =
-			m_vk_begin_command_buffer(m_command_buffers[m_current_frame_index], &command_buffer_begin_info);
-		assert(VK_SUCCESS == res_begin_command_buffer);
+		//VkResult res_begin_command_buffer =
+		//	m_vk_begin_command_buffer(m_command_buffers[m_current_frame_index], &command_buffer_begin_info);
+		//assert(VK_SUCCESS == res_begin_command_buffer);
 
 		return false;
 	}
@@ -147,47 +155,88 @@ namespace ME
 	void VulkanRHI::SubmitRendering()
 	{
 		// end command buffer
-		VkResult res_end_command_buffer = m_vk_end_command_buffer(m_command_buffers[m_current_frame_index]);
-		assert(VK_SUCCESS == res_end_command_buffer);
+		//VkResult res_end_command_buffer = m_vk_end_command_buffer(m_command_buffers[m_current_frame_index]);
+		//assert(VK_SUCCESS == res_end_command_buffer);
 
 		// submit command buffer
-		VkPipelineStageFlags wait_stages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
-		VkSubmitInfo submit_info = {};
-		submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-		submit_info.waitSemaphoreCount = 1;
-		submit_info.pWaitSemaphores = &m_image_available_for_render_semaphores[m_current_frame_index];
-		submit_info.pWaitDstStageMask = wait_stages; 
-		submit_info.commandBufferCount = 1;
-		submit_info.pCommandBuffers = &m_command_buffers[m_current_frame_index];
-		submit_info.signalSemaphoreCount = 1;
-		submit_info.pSignalSemaphores = &m_image_finished_for_presentation_semaphores[m_current_frame_index];
+		//VkPipelineStageFlags wait_stages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+		//VkSubmitInfo submit_info = {};
+		//submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+		//submit_info.waitSemaphoreCount = 1;
+		//submit_info.pWaitSemaphores = &m_image_available_for_render_semaphores[m_current_frame_index];
+		//submit_info.pWaitDstStageMask = wait_stages; 
+		//submit_info.commandBufferCount = 1;
+		//submit_info.pCommandBuffers = &m_command_buffers[m_current_frame_index];
+		//submit_info.signalSemaphoreCount = 1;
+		//submit_info.pSignalSemaphores = &m_image_finished_for_presentation_semaphores[m_current_frame_index];
 
-		VkResult res_reset_fences = m_vk_reset_fences(m_device, 1, &m_is_frame_in_flight_fences[m_current_frame_index]);
-		assert(VK_SUCCESS == res_reset_fences);
+		//VkResult res_reset_fences = m_vk_reset_fences(m_device, 1, &m_is_frame_in_flight_fences[m_current_frame_index]);
+		//assert(VK_SUCCESS == res_reset_fences);
 
-		VkResult res_queue_submit =
-			vkQueueSubmit(m_graphics_queue, 1, &submit_info, m_is_frame_in_flight_fences[m_current_frame_index]);
-		assert(VK_SUCCESS == res_queue_submit);
+		//VkResult res_queue_submit =
+		//	vkQueueSubmit(m_graphics_queue, 1, &submit_info, m_is_frame_in_flight_fences[m_current_frame_index]);
+		//assert(VK_SUCCESS == res_queue_submit);
 
-		// present swapchain
-		VkPresentInfoKHR present_info = {};
+		//// present swapchain
+		//VkPresentInfoKHR present_info = {};
+		//present_info.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+		//present_info.waitSemaphoreCount = 1;
+		//present_info.pWaitSemaphores = &m_image_finished_for_presentation_semaphores[m_current_frame_index];
+		//present_info.swapchainCount = 1;
+		//present_info.pSwapchains = &m_swapchain;
+		//present_info.pImageIndices = &m_current_swapchain_image_index;
+
+		//VkResult present_result = vkQueuePresentKHR(m_present_queue, &present_info);
+		//vkQueueWaitIdle(m_present_queue);
+
+		//if (VK_ERROR_OUT_OF_DATE_KHR == present_result || VK_SUBOPTIMAL_KHR == present_result)
+		//{
+		//	RecreateSwapchain();
+
+		//}
+		//else
+		//{
+		//	assert(VK_SUCCESS == present_result);
+		//}
+
+		//m_current_frame_index = (m_current_frame_index + 1) % m_max_frames_in_flight;
+		vkWaitForFences(m_device, 1, &m_is_frame_in_flight_fences[m_current_frame_index], VK_TRUE, UINT64_MAX);
+		vkResetFences(m_device, 1, &m_is_frame_in_flight_fences[m_current_frame_index]);
+
+		VkSubmitInfo submitInfo{};
+		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+		VkSemaphore waitSemaphores[] = { m_image_available_for_render_semaphores[m_current_frame_index] };
+		VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+		submitInfo.waitSemaphoreCount = 1;
+		submitInfo.pWaitSemaphores = waitSemaphores;
+		submitInfo.pWaitDstStageMask = waitStages;
+
+		submitInfo.commandBufferCount = 1;
+		submitInfo.pCommandBuffers = &m_command_buffers[m_current_swapchain_image_index];
+
+		VkSemaphore signalSemaphores[] = { m_image_finished_for_presentation_semaphores[m_current_frame_index] };
+		submitInfo.signalSemaphoreCount = 1;
+		submitInfo.pSignalSemaphores = signalSemaphores;
+
+		if (vkQueueSubmit(m_graphics_queue, 1, &submitInfo, m_is_frame_in_flight_fences[m_current_frame_index]) != VK_SUCCESS)
+		{
+			throw std::runtime_error("Failed to submit draw command buffer!");
+		}
+
+		VkPresentInfoKHR present_info{};
 		present_info.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+
 		present_info.waitSemaphoreCount = 1;
-		present_info.pWaitSemaphores = &m_image_finished_for_presentation_semaphores[m_current_frame_index];
+		present_info.pWaitSemaphores = signalSemaphores;
+
+		VkSwapchainKHR swap_chains[] = { m_swapchain };
 		present_info.swapchainCount = 1;
-		present_info.pSwapchains = &m_swapchain;
+		present_info.pSwapchains = swap_chains;
 		present_info.pImageIndices = &m_current_swapchain_image_index;
+		present_info.pResults = nullptr;
 
-		VkResult present_result = vkQueuePresentKHR(m_present_queue, &present_info);
-		if (VK_ERROR_OUT_OF_DATE_KHR == present_result || VK_SUBOPTIMAL_KHR == present_result)
-		{
-			RecreateSwapchain();
-
-		}
-		else
-		{
-			assert(VK_SUCCESS == present_result);
-		}
+		vkQueuePresentKHR(m_present_queue, &present_info);
+		vkQueueWaitIdle(m_present_queue);
 
 		m_current_frame_index = (m_current_frame_index + 1) % m_max_frames_in_flight;
 	}
@@ -494,18 +543,42 @@ namespace ME
 
 	void VulkanRHI::CreateCommandBuffers()
 	{
+		//VkCommandBufferAllocateInfo command_buffer_allocate_info{};
+		//command_buffer_allocate_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+		//command_buffer_allocate_info.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+		//command_buffer_allocate_info.commandBufferCount = 1U;
+
+		//for (uint32_t i = 0; i < m_max_frames_in_flight; i++)
+		//{
+		//	command_buffer_allocate_info.commandPool = m_command_pools[i];
+		//	
+		//	if (vkAllocateCommandBuffers(m_device, &command_buffer_allocate_info, &m_command_buffers[i]) != VK_SUCCESS)
+		//	{
+		//		throw std::runtime_error("Failed to create command buffers!");
+		//	}
+		//}
+
 		VkCommandBufferAllocateInfo command_buffer_allocate_info{};
 		command_buffer_allocate_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+		command_buffer_allocate_info.commandPool = m_command_pool;
 		command_buffer_allocate_info.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-		command_buffer_allocate_info.commandBufferCount = 1U;
+		command_buffer_allocate_info.commandBufferCount = (uint32_t)(m_max_frames_in_flight);
 
-		for (uint32_t i = 0; i < m_max_frames_in_flight; i++)
+		if (vkAllocateCommandBuffers(m_device, &command_buffer_allocate_info, &m_command_buffers[0]) != VK_SUCCESS)
 		{
-			command_buffer_allocate_info.commandPool = m_command_pools[i];
-			
-			if (vkAllocateCommandBuffers(m_device, &command_buffer_allocate_info, &m_command_buffers[i]) != VK_SUCCESS)
+			throw std::runtime_error("Failed to allocate command buffers!");
+		}
+
+		for (size_t i = 0; i < m_max_frames_in_flight; i++)
+		{
+			VkCommandBufferBeginInfo command_buffer_begin_info{};
+			command_buffer_begin_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+			command_buffer_begin_info.flags = 0;
+			command_buffer_begin_info.pInheritanceInfo = nullptr;
+
+			if (vkBeginCommandBuffer(m_command_buffers[i], &command_buffer_begin_info) != VK_SUCCESS)
 			{
-				throw std::runtime_error("Failed to create command buffers!");
+				throw std::runtime_error("Failed to begin recording command buffer!");
 			}
 		}
 	}

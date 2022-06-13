@@ -11,10 +11,11 @@ namespace ME
 	{
 		RenderPass::Initialize(nullptr);
 
-		SetupAttachments();
+		//SetupAttachments();
 		SetupRenderPass();
 		SetupPipelines();
 		SetupSwapchainFramebuffers();
+		SetupCommandBuffers();
 	}
 
 	void MainCameraPass::PreparePassData(std::shared_ptr<RenderResourceBase> render_resource)
@@ -307,31 +308,31 @@ namespace ME
 								uint32_t current_swapchain_image_index)
 	{
 		{
-			VkRenderPassBeginInfo renderpass_begin_info{};
-			renderpass_begin_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-			renderpass_begin_info.renderPass = m_framebuffer.render_pass;
-			renderpass_begin_info.framebuffer = m_swapchain_framebuffers[current_swapchain_image_index];
-			renderpass_begin_info.renderArea.offset = { 0, 0 };
-			renderpass_begin_info.renderArea.extent = m_vulkan_rhi->m_swapchain_extent;
+			//VkRenderPassBeginInfo renderpass_begin_info{};
+			//renderpass_begin_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+			//renderpass_begin_info.renderPass = m_framebuffer.render_pass;
+			//renderpass_begin_info.framebuffer = m_swapchain_framebuffers[current_swapchain_image_index];
+			//renderpass_begin_info.renderArea.offset = { 0, 0 };
+			//renderpass_begin_info.renderArea.extent = m_vulkan_rhi->m_swapchain_extent;
 
-			VkClearValue clear_values = { 0.0f, 0.0f, 0.0f, 1.0f };
-			renderpass_begin_info.clearValueCount = 1;
-			renderpass_begin_info.pClearValues = &clear_values;
+			//VkClearValue clear_values = { 0.0f, 0.0f, 0.0f, 1.0f };
+			//renderpass_begin_info.clearValueCount = 1;
+			//renderpass_begin_info.pClearValues = &clear_values;
 
-			m_vulkan_rhi->m_vk_cmd_begin_render_pass(m_vulkan_rhi->m_current_command_buffer, &renderpass_begin_info, VK_SUBPASS_CONTENTS_INLINE);
+			//m_vulkan_rhi->m_vk_cmd_begin_render_pass(m_vulkan_rhi->m_current_command_buffer, &renderpass_begin_info, VK_SUBPASS_CONTENTS_INLINE);
 
-			m_vulkan_rhi->m_vk_cmd_bind_pipeline(m_vulkan_rhi->m_current_command_buffer,
-													VK_PIPELINE_BIND_POINT_GRAPHICS,
-													m_render_pipelines[0].pipeline);
+			//m_vulkan_rhi->m_vk_cmd_bind_pipeline(m_vulkan_rhi->m_current_command_buffer,
+			//										VK_PIPELINE_BIND_POINT_GRAPHICS,
+			//										m_render_pipelines[0].pipeline);
 
-			vkCmdDraw(m_vulkan_rhi->m_current_command_buffer, 3, 1, 0, 0);
+			//vkCmdDraw(m_vulkan_rhi->m_current_command_buffer, 3, 1, 0, 0);
 
-			m_vulkan_rhi->m_vk_cmd_end_render_pass(m_vulkan_rhi->m_current_command_buffer);
+			//m_vulkan_rhi->m_vk_cmd_end_render_pass(m_vulkan_rhi->m_current_command_buffer);
 
-			if (m_vulkan_rhi->m_vk_end_command_buffer(m_vulkan_rhi->m_current_command_buffer) != VK_SUCCESS)
-			{
-				throw std::runtime_error("Failed to record command buffer!");
-			}
+			//if (m_vulkan_rhi->m_vk_end_command_buffer(m_vulkan_rhi->m_current_command_buffer) != VK_SUCCESS)
+			//{
+			//	throw std::runtime_error("Failed to record command buffer!");
+			//}
 		}
 	}
 
@@ -339,5 +340,36 @@ namespace ME
 									 uint32_t current_swapchain_image_index)
 	{
 
+	}
+
+	void MainCameraPass::SetupCommandBuffers()
+	{
+		for (size_t i = 0; i < m_vulkan_rhi->m_max_frames_in_flight; i++)
+		{
+			VkRenderPassBeginInfo renderpass_info{};
+			renderpass_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+			renderpass_info.renderPass = m_framebuffer.render_pass;
+			renderpass_info.framebuffer = m_swapchain_framebuffers[i];
+
+			renderpass_info.renderArea.offset = { 0, 0 };
+			renderpass_info.renderArea.extent = m_vulkan_rhi->m_swapchain_extent;
+
+			VkClearValue clear_color = { 0.0f, 0.0f, 0.0f, 1.0f };
+			renderpass_info.clearValueCount = 1;
+			renderpass_info.pClearValues = &clear_color;
+
+			vkCmdBeginRenderPass(m_vulkan_rhi->m_command_buffers[i], &renderpass_info, VK_SUBPASS_CONTENTS_INLINE);
+
+			vkCmdBindPipeline(m_vulkan_rhi->m_command_buffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_render_pipelines[0].pipeline);
+
+			vkCmdDraw(m_vulkan_rhi->m_command_buffers[i], 3, 1, 0, 0);
+
+			vkCmdEndRenderPass(m_vulkan_rhi->m_command_buffers[i]);
+
+			if (vkEndCommandBuffer(m_vulkan_rhi->m_command_buffers[i]) != VK_SUCCESS)
+			{
+				throw std::runtime_error("Failed to record command buffer!");
+			}
+		}
 	}
 }
