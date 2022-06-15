@@ -52,16 +52,16 @@ namespace ME
 
 		//vulkan_rhi->WaitForFences();
 
-		bool recreate_swapchain = vulkan_rhi->PrepareBeforePass();
-		if (recreate_swapchain)
-		{
-			return;
-		}
+		//bool recreate_swapchain = vulkan_rhi->PrepareBeforePass();
+		//if (recreate_swapchain)
+		//{
+		//	return;
+		//}
 
-		UIPass& ui_pass = *(static_cast<UIPass*>(m_ui_pass.get()));
+		//UIPass& ui_pass = *(static_cast<UIPass*>(m_ui_pass.get()));
 
-		static_cast<MainCameraPass*>(m_main_camera_pass.get())
-			->Draw(ui_pass, vulkan_rhi->m_current_swapchain_image_index);
+		//static_cast<MainCameraPass*>(m_main_camera_pass.get())
+		//	->Draw(ui_pass, vulkan_rhi->m_current_swapchain_image_index);
 
 		vulkan_rhi->SubmitRendering();
 	}

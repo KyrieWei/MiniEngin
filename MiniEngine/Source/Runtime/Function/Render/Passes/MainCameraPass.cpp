@@ -203,7 +203,7 @@ namespace ME
 		rasterization_state_create_info.polygonMode = VK_POLYGON_MODE_FILL;
 		rasterization_state_create_info.lineWidth = 1.0f;
 		rasterization_state_create_info.cullMode = VK_CULL_MODE_BACK_BIT;
-		rasterization_state_create_info.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
+		rasterization_state_create_info.frontFace = VK_FRONT_FACE_CLOCKWISE;
 		rasterization_state_create_info.depthBiasEnable = VK_FALSE;
 		rasterization_state_create_info.depthBiasConstantFactor = 0.0f;
 		rasterization_state_create_info.depthBiasClamp = 0.0f;
@@ -239,7 +239,7 @@ namespace ME
 		VkDynamicState dynamic_states[] =
 		{
 			VK_DYNAMIC_STATE_VIEWPORT,
-			VK_DYNAMIC_STATE_SCISSOR
+			VK_DYNAMIC_STATE_LINE_WIDTH
 		};
 
 		VkPipelineDynamicStateCreateInfo dynamic_state_create_info{};
@@ -263,7 +263,7 @@ namespace ME
 		pipeline_create_info.subpass = 0;
 		pipeline_create_info.basePipelineHandle = VK_NULL_HANDLE;
 		pipeline_create_info.basePipelineIndex = -1;
-		pipeline_create_info.pDynamicState = nullptr;
+		//pipeline_create_info.pDynamicState = &dynamic_state_create_info;
 
 		if (vkCreateGraphicsPipelines(	m_vulkan_rhi->m_device,
 										VK_NULL_HANDLE,
@@ -333,6 +333,8 @@ namespace ME
 			//{
 			//	throw std::runtime_error("Failed to record command buffer!");
 			//}
+
+			
 		}
 	}
 

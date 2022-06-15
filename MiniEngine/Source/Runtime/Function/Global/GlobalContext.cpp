@@ -24,8 +24,10 @@ namespace ME
 
 	void RuntimeGlobalContext::ShutdownSystems()
 	{
-		m_logger_system.reset();
-
+		m_render_system.reset();
+		
 		m_window_system.reset();
+
+		m_logger_system.reset();
 	}
 }

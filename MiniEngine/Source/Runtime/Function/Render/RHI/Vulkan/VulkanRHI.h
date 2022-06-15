@@ -135,6 +135,7 @@ namespace ME
 		VkSemaphore m_image_available_for_render_semaphores[m_max_frames_in_flight];
 		VkSemaphore m_image_finished_for_presentation_semaphores[m_max_frames_in_flight];
 		VkFence m_is_frame_in_flight_fences[m_max_frames_in_flight];
+		VkFence m_images_in_flight[m_max_frames_in_flight];
 
 		// set
 		VkCommandBuffer		m_current_command_buffer;

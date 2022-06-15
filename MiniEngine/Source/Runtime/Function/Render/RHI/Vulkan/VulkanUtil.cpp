@@ -35,6 +35,7 @@ namespace ME
 		VkShaderModule shader_module;
 		if (vkCreateShaderModule(device, &shader_module_create_info, nullptr, &shader_module) != VK_SUCCESS)
 		{
+			throw std::runtime_error("Failed to create shader module!");
 			return VK_NULL_HANDLE;
 		}
 
@@ -106,6 +107,12 @@ namespace ME
 		image_view_create_info.image = image;
 		image_view_create_info.viewType = view_type;
 		image_view_create_info.format = format;
+
+		image_view_create_info.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
+		image_view_create_info.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
+		image_view_create_info.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
+		image_view_create_info.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
+
 		image_view_create_info.subresourceRange.aspectMask = image_aspect_flags;
 		image_view_create_info.subresourceRange.baseMipLevel = 0;
 		image_view_create_info.subresourceRange.levelCount = miplevels;
@@ -115,7 +122,7 @@ namespace ME
 		VkImageView image_view;
 		if (vkCreateImageView(device, &image_view_create_info, nullptr, &image_view) != VK_SUCCESS)
 		{
-			return image_view;
+			throw std::runtime_error("Failed to create image views!");
 		}
 
 		return image_view;

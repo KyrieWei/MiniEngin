@@ -21,6 +21,8 @@ namespace ME
 	void MiniEngine::ShutdownEngine()
 	{
 		LOG_INFO("Engine Shutdown");
+
+		g_runtime_global_context.ShutdownSystems();
 	}
 
 	void MiniEngine::Initialize()
@@ -62,6 +64,8 @@ namespace ME
 		// exchange data between logic and render contexts
 
 		RenderTick();
+
+		g_runtime_global_context.m_window_system->PollEvents();
 
 		const bool should_window_close = g_runtime_global_context.m_window_system->ShouldClose();
 		return !should_window_close;

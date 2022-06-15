@@ -30,6 +30,11 @@ namespace ME
 		// Setup input callbacks
 	}
 
+	void WindowSystem::PollEvents() const
+	{
+		glfwPollEvents();
+	}
+
 	bool WindowSystem::ShouldClose() const { return glfwWindowShouldClose(m_window); }
 
 	GLFWwindow* WindowSystem::GetWindow() const { return m_window; }

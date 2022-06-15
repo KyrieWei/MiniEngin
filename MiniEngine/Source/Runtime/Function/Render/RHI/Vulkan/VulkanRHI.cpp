@@ -39,7 +39,7 @@ namespace ME
 
 		CreateInstance();
 
-		InitializeDebugMessenger();
+		//InitializeDebugMessenger();
 
 		CreateWindowSurface();
 
@@ -56,7 +56,7 @@ namespace ME
 
 		CreateSwapchainImageViews();
 
-		CreateFramebufferImageAndView();
+		//CreateFramebufferImageAndView();
 
 		//CreateAssetAllocator();
 
@@ -200,8 +200,13 @@ namespace ME
 		//}
 
 		//m_current_frame_index = (m_current_frame_index + 1) % m_max_frames_in_flight;
+
 		vkWaitForFences(m_device, 1, &m_is_frame_in_flight_fences[m_current_frame_index], VK_TRUE, UINT64_MAX);
 		vkResetFences(m_device, 1, &m_is_frame_in_flight_fences[m_current_frame_index]);
+
+		uint32_t imageIndex;
+		vkAcquireNextImageKHR(m_device, m_swapchain, UINT64_MAX, m_image_available_for_render_semaphores[m_current_frame_index], VK_NULL_HANDLE, &imageIndex);
+
 
 		VkSubmitInfo submitInfo{};
 		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -212,7 +217,7 @@ namespace ME
 		submitInfo.pWaitDstStageMask = waitStages;
 
 		submitInfo.commandBufferCount = 1;
-		submitInfo.pCommandBuffers = &m_command_buffers[m_current_swapchain_image_index];
+		submitInfo.pCommandBuffers = &m_command_buffers[imageIndex];
 
 		VkSemaphore signalSemaphores[] = { m_image_finished_for_presentation_semaphores[m_current_frame_index] };
 		submitInfo.signalSemaphoreCount = 1;
@@ -232,7 +237,7 @@ namespace ME
 		VkSwapchainKHR swap_chains[] = { m_swapchain };
 		present_info.swapchainCount = 1;
 		present_info.pSwapchains = swap_chains;
-		present_info.pImageIndices = &m_current_swapchain_image_index;
+		present_info.pImageIndices = &imageIndex;
 		present_info.pResults = nullptr;
 
 		vkQueuePresentKHR(m_present_queue, &present_info);
@@ -339,8 +344,8 @@ namespace ME
 			instance_create_info.enabledLayerCount		= static_cast<uint32_t>(m_validation_layers.size());
 			instance_create_info.ppEnabledLayerNames	= m_validation_layers.data();
 
-			PopulateDebugMessengerCreateInfo(debugCreateInfo);
-			instance_create_info.pNext					= (VkDebugUtilsMessengerCreateInfoEXT*)&debugCreateInfo;
+			//PopulateDebugMessengerCreateInfo(debugCreateInfo);
+			//instance_create_info.pNext					= (VkDebugUtilsMessengerCreateInfoEXT*)&debugCreateInfo;
 		}
 		else
 		{
@@ -484,7 +489,17 @@ namespace ME
 
 		device_create_info.enabledExtensionCount = static_cast<uint32_t>(m_device_extensions.size());
 		device_create_info.ppEnabledExtensionNames = m_device_extensions.data();
-		device_create_info.enabledLayerCount = 0;
+		//device_create_info.enabledLayerCount = 0;
+
+		//if (m_enable_validation_layers)
+		//{
+		//	device_create_info.enabledLayerCount = static_cast<uint32_t>(m_validation_layers.size());
+		//	device_create_info.ppEnabledLayerNames = m_validation_layers.data();
+		//}
+		//else
+		//{
+		//	device_create_info.enabledLayerCount = 0;
+		//}
 
 		if (vkCreateDevice(m_physical_device, &device_create_info, nullptr, &m_device) != VK_SUCCESS)
 		{
@@ -514,7 +529,7 @@ namespace ME
 			VkCommandPoolCreateInfo command_pool_create_info{};
 			command_pool_create_info.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 			command_pool_create_info.pNext = NULL;
-			command_pool_create_info.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
+			command_pool_create_info.flags = 0; //VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 			command_pool_create_info.queueFamilyIndex = m_queue_indices.m_graphics_family.value();
 
 			if (vkCreateCommandPool(m_device, &command_pool_create_info, nullptr, &m_command_pool) != VK_SUCCESS)
@@ -580,6 +595,8 @@ namespace ME
 			{
 				throw std::runtime_error("Failed to begin recording command buffer!");
 			}
+
+
 		}
 	}
 
