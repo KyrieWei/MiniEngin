@@ -46,6 +46,7 @@ namespace ME
 		void Clear();
 
 		void WaitForFences();
+		void ResetCommandPool();
 		bool PrepareBeforePass();
 		void SubmitRendering();
 
@@ -118,11 +119,13 @@ namespace ME
 		// function pointers
 		PFN_vkWaitForFences m_vk_wait_for_fences;
 		PFN_vkResetFences m_vk_reset_fences;
+		PFN_vkResetCommandPool m_vk_reset_command_pool;
 		PFN_vkBeginCommandBuffer m_vk_begin_command_buffer;
 		PFN_vkEndCommandBuffer m_vk_end_command_buffer;
 		PFN_vkCmdBeginRenderPass m_vk_cmd_begin_render_pass;
 		PFN_vkCmdEndRenderPass m_vk_cmd_end_render_pass;
 		PFN_vkCmdBindPipeline m_vk_cmd_bind_pipeline;
+		PFN_vkCmdDraw m_vk_cmd_draw;
 
 		// global descriptor pool
 		VkDescriptorPool m_descriptor_pool;

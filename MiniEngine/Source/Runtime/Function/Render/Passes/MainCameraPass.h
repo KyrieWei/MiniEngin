@@ -29,6 +29,8 @@ namespace ME
 
 		void SetupCommandBuffers();
 
+		void DrawMeshGBuffer();
+
 	private:
 		std::vector<VkFramebuffer> m_swapchain_framebuffers;
 	};

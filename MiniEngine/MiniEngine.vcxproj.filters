@@ -63,6 +63,9 @@
     <Filter Include="3rdParty\vulkanmemallocator">
       <UniqueIdentifier>{1293f97d-2bea-47db-a811-6134542e965d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Runtime\Core\Math">
+      <UniqueIdentifier>{90f997a8-9cb6-424a-9ed0-d4e4df426170}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp">
@@ -148,6 +151,33 @@
     </ClCompile>
     <ClCompile Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanUtil.cpp">
       <Filter>Source Files\Runtime\Function\Render\RHI\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RenderCamera.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Core\Math\Vector3.cpp">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Core\Math\Math.cpp">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Core\Math\Matrix3.cpp">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Core\Math\Matrix4.cpp">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Core\Math\Quaternion.cpp">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Core\Math\Vector2.cpp">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Core\Math\Vector4.cpp">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RenderScene.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +279,45 @@
     </ClInclude>
     <ClInclude Include="3rdParty\vulkanmemallocator\vk_mem_alloc.h">
       <Filter>3rdParty\vulkanmemallocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderCamera.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Math\MathHeaders.h">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Math\Vector3.h">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Math\Random.h">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Math\Transform.h">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Math\Vector4.h">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Math\Math.h">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Math\Matrix3.h">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Math\Matrix4.h">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Math\Quaternion.h">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Math\Vector2.h">
+      <Filter>Source Files\Runtime\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderScene.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderEntity.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
