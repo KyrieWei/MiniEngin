@@ -20,7 +20,11 @@ namespace ME
 		m_rhi = std::make_shared<VulkanRHI>();
 		m_rhi->Initialize(rhi_init_info);
 
+		// upload ibl, color grading textures
+		LevelResourceDesc level_resource_desc;
+		
 		m_render_resource = std::make_shared<RenderResource>();
+		m_render_resource->UploadGlobalRenderResource(m_rhi, level_resource_desc);
 
 		// initialize render pipeline
 		RenderPipelineInitInfo pipeline_init_info;

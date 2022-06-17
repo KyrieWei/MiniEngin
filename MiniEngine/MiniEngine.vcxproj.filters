@@ -179,6 +179,9 @@
     <ClCompile Include="Source\Runtime\Function\Render\RenderScene.cpp">
       <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Render\RenderSwapContext.cpp">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h">
@@ -317,6 +320,9 @@
       <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClInclude>
     <ClInclude Include="Source\Runtime\Function\Render\RenderEntity.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderSwapContext.h">
       <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClInclude>
   </ItemGroup>

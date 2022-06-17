@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -176,6 +176,7 @@
     <ClCompile Include="Source\Runtime\Function\Render\RenderResource.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RenderResourceBase.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RenderScene.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Render\RenderSwapContext.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RenderSystem.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RHI.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\RHI\Vulkan\VulkanRHI.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="Source\Runtime\Function\Render\RenderResource.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderResourceBase.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderScene.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RenderSwapContext.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderSystem.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderType.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RHI.h" />
