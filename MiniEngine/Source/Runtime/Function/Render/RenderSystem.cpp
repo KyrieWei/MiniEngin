@@ -4,6 +4,8 @@
 #include "Runtime/Function/Render/RenderPipeline.h"
 #include "Runtime/Function/Render/RenderResource.h"
 #include "Runtime/Function/Render/RHI/Vulkan/VulkanRHI.h"
+#include "Runtime/Function/Render/RenderCamera.h"
+#include "Runtime/Function/Render/RenderScene.h"
 
 namespace ME
 {
@@ -14,6 +16,8 @@ namespace ME
 
 	void RenderSystem::Initialize(RenderSystemInitInfo init_info)
 	{
+
+		// render context initialize
 		RHIInitInfo rhi_init_info;
 		rhi_init_info.window_system = init_info.window_system;
 
@@ -26,9 +30,19 @@ namespace ME
 		m_render_resource = std::make_shared<RenderResource>();
 		m_render_resource->UploadGlobalRenderResource(m_rhi, level_resource_desc);
 
+		// setup render camera
+		m_render_camera = std::make_shared<RenderCamera>();
+
+		// setup render scene
+		m_render_scene = std::make_shared<RenderScene>();
+
+
 		// initialize render pipeline
 		RenderPipelineInitInfo pipeline_init_info;
 		pipeline_init_info.render_resource = m_render_resource;
+
+		
+		
 
 		m_render_pipeline = std::make_shared<RenderPipeline>();
 		m_render_pipeline->m_rhi = m_rhi;

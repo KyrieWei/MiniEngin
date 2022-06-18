@@ -4,11 +4,7 @@
 
 namespace ME
 {
-	struct EngineInitParams
-	{
-		std::filesystem::path m_root_folder;
-		std::filesystem::path m_config_file_path;
-	};
+	
 
 	class MiniEngine
 	{
@@ -18,7 +14,7 @@ namespace ME
 		static const float k_fps_alpha;
 
 	public:
-		void StartEngine(const EngineInitParams& param);
+		void StartEngine(const std::string& config_file_path);
 		void ShutdownEngine();
 
 		void Initialize();
@@ -39,8 +35,6 @@ namespace ME
 		float CalculateDeltaTime();
 
 	protected:
-
-		EngineInitParams m_init_params;
 
 		bool m_is_quit{ false };
 

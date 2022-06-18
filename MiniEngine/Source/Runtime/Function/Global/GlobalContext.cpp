@@ -1,6 +1,7 @@
 #include "GlobalContext.h"
 
 #include "Runtime/Core/Log/LogSystem.h"
+#include "Runtime/Resource/ConfigManager/ConfigManager.h"
 #include "Runtime/Function/Render/WindowSystem.h"
 #include "Runtime/Function/Render/RenderSystem.h"
 
@@ -8,8 +9,12 @@ namespace ME
 {
 	RuntimeGlobalContext g_runtime_global_context;
 
-	void RuntimeGlobalContext::StartSystems(const EngineInitParams& init_params)
+	void RuntimeGlobalContext::StartSystems(const std::string& config_file_path)
 	{
+
+		m_config_manager = std::make_shared<ConfigManager>();
+		m_config_manager->Initialize(config_file_path);
+
 		m_logger_system = std::make_shared<LogSystem>();
 
 		m_window_system = std::make_shared<WindowSystem>();
@@ -29,5 +34,7 @@ namespace ME
 		m_window_system.reset();
 
 		m_logger_system.reset();
+
+		m_config_manager.reset();
 	}
 }

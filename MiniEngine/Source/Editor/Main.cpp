@@ -6,18 +6,15 @@
 #define MINIENGINE_XSTR(s) MINIENGINE_STR(s)
 #define MINIENGINE_STR(s) #s
 
-int main()
+int main(int argc, char** argv)
 {
-	std::filesystem::path mini_engine_root_folder = std::filesystem::path(MINIENGINE_XSTR(MINIENGINE_ROOT_DIR));
+	std::filesystem::path executable_path(argv[0]);
+	std::filesystem::path config_file_path = executable_path.parent_path().parent_path().parent_path() / "Configs\\MiniEngineEditor.ini";
 
-	ME::EngineInitParams params;
-
-	params.m_root_folder = mini_engine_root_folder;
-	params.m_config_file_path = mini_engine_root_folder / "MiniEngineEditor.ini";
 
 	ME::MiniEngine* engine = new ME::MiniEngine();
 
-	engine->StartEngine(params);
+	engine->StartEngine(config_file_path.generic_string());
 	engine->Initialize();
 
 	ME::MiniEngineEditor* editor = new ME::MiniEngineEditor();

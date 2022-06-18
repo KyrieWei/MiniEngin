@@ -66,6 +66,18 @@
     <Filter Include="Source Files\Runtime\Core\Math">
       <UniqueIdentifier>{90f997a8-9cb6-424a-9ed0-d4e4df426170}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Runtime\Resource">
+      <UniqueIdentifier>{fec3d70d-6273-457d-8343-a771487442f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Resource\AssetManager">
+      <UniqueIdentifier>{24f03f44-eadc-4d8d-8c1a-10780ef98dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Resource\ConfigManager">
+      <UniqueIdentifier>{fc5b5ac9-9fd6-465c-9a76-4c29a3d5c9ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Resource\ResType">
+      <UniqueIdentifier>{d3b7b931-c71f-41ea-be32-b125aa679cac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp">
@@ -181,6 +193,12 @@
     </ClCompile>
     <ClCompile Include="Source\Runtime\Function\Render\RenderSwapContext.cpp">
       <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Resource\AssetManager\AssetManager.cpp">
+      <Filter>Source Files\Runtime\Resource\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Resource\ConfigManager\ConfigManager.cpp">
+      <Filter>Source Files\Runtime\Resource\ConfigManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +342,12 @@
     </ClInclude>
     <ClInclude Include="Source\Runtime\Function\Render\RenderSwapContext.h">
       <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Resource\AssetManager\AssetManager.h">
+      <Filter>Source Files\Runtime\Resource\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Resource\ConfigManager\ConfigManager.h">
+      <Filter>Source Files\Runtime\Resource\ConfigManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

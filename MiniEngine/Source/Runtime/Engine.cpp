@@ -9,11 +9,9 @@ namespace ME
 {
 	const float MiniEngine::k_fps_alpha = 1.f / 100;
 
-	void MiniEngine::StartEngine(const EngineInitParams& param)
+	void MiniEngine::StartEngine(const std::string& config_file_path)
 	{
-		m_init_params = param;
-
-		g_runtime_global_context.StartSystems(param);
+		g_runtime_global_context.StartSystems(config_file_path);
 
 		LOG_INFO("Engine Start");
 	}

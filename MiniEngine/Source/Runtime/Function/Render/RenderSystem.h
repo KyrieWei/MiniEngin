@@ -10,6 +10,8 @@ namespace ME
 	class RHI;
 	class RenderResourceBase;
 	class RenderPipelineBase;
+	class RenderCamera;
+	class RenderScene;
 
 	struct RenderSystemInitInfo
 	{
@@ -29,6 +31,8 @@ namespace ME
 		RENDER_PIPELINE_TYPE m_render_pipeline_type{ RENDER_PIPELINE_TYPE::DEFERRED_PIPELINE };
 
 		std::shared_ptr<RHI> m_rhi;
+		std::shared_ptr<RenderCamera>		m_render_camera;
+		std::shared_ptr<RenderScene>		m_render_scene;
 		std::shared_ptr<RenderResourceBase> m_render_resource;
 		std::shared_ptr<RenderPipelineBase> m_render_pipeline;
 

@@ -29,6 +29,10 @@ namespace ME
 		static constexpr float MAX_FOV{ 89.0f };
 		
 	};
+
+	inline const Vector3 RenderCamera::X = { 1.0f, 0.0f, 0.0f };
+	inline const Vector3 RenderCamera::Y = { 0.0f, 1.0f, 0.0f };
+	inline const Vector3 RenderCamera::Z = { 0.0f, 0.0f, 1.0f };
 	
 }
 
