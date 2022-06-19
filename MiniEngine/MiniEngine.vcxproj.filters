@@ -349,5 +349,8 @@
     <ClInclude Include="Source\Runtime\Resource\ConfigManager\ConfigManager.h">
       <Filter>Source Files\Runtime\Resource\ConfigManager</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderCommon.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #pragma once
 #include "Runtime/Function/Render/RenderPassBase.h"
+#include "Runtime/Function/Render/RenderCommon.h"
 
 #include <vulkan/vulkan.h>
 
@@ -31,6 +32,11 @@ namespace ME
 		_main_camera_subpass_basepass = 0,
 		_main_camera_subpass_ui,
 		_main_camera_subpass_count
+	};
+
+	struct VisibleNodes
+	{
+		std::vector<RenderMeshNode>* p_main_camera_visible_mesh_nodes{ nullptr };
 	};
 
 	class RenderPass : public RenderPassBase
@@ -75,7 +81,7 @@ namespace ME
 		//virtual std::vector<VkImageView> GetFrameBufferImageViews() const;
 		//virtual std::vector<VkDescriptorSetLayout> GetDescriptorSetLayouts() const;
 
-		
+		static VisibleNodes m_visible_nodes;
 	};
 } // namespace ME
 

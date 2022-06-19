@@ -1,6 +1,8 @@
 #include "RenderPass.h"
 #include "Runtime/Function/Render/RHI/Vulkan/VulkanRHI.h"
 
+ME::VisibleNodes ME::RenderPass::m_visible_nodes;
+
 namespace ME
 {
 	void RenderPass::Initialize(const RenderPassInitInfo* init_info)

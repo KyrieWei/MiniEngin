@@ -218,6 +218,7 @@
     <ClInclude Include="Source\Runtime\Function\Render\Passes\MainCameraPass.h" />
     <ClInclude Include="Source\Runtime\Function\Render\Passes\UIPass.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderCamera.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RenderCommon.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderEntity.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderPass.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderPassBase.h" />
