@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Runtime/Function/Render/RenderType.h"
+#include "Runtime/Function/Render/RenderSwapContext.h"
 
 #include <memory>
 
@@ -29,6 +30,8 @@ namespace ME
 
 	private:
 		RENDER_PIPELINE_TYPE m_render_pipeline_type{ RENDER_PIPELINE_TYPE::DEFERRED_PIPELINE };
+
+		RenderSwapContext m_swap_context;
 
 		std::shared_ptr<RHI> m_rhi;
 		std::shared_ptr<RenderCamera>		m_render_camera;

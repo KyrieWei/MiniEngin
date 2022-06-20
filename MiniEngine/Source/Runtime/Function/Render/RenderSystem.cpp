@@ -74,6 +74,24 @@ namespace ME
 
 	void RenderSystem::ProcessSwapData()
 	{
+		RenderSwapData& swap_data = m_swap_context.GetRenderSwapData();
+
+		std::shared_ptr<AssetManager> asset_manager = g_runtime_global_context.m_asset_manager;
+		assert(asset_manager);
+
+		// TODO: update global resources if needed
+		
+
+		// update game object if needed
+		if (swap_data.m_game_object_resource_desc.has_value())
+		{
+			while (!swap_data.m_game_object_resource_desc->IsEmpty())
+			{
+				GameObjectDesc gobject = swap_data.m_game_object_resource_desc->GetNextProcessObject();
+
+				//for()
+			}
+		}
 
 	}
 

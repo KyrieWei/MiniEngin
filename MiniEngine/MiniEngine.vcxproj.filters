@@ -78,6 +78,12 @@
     <Filter Include="Source Files\Runtime\Resource\ResType">
       <UniqueIdentifier>{d3b7b931-c71f-41ea-be32-b125aa679cac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Runtime\Function\Framework">
+      <UniqueIdentifier>{a3895a71-0e79-4e96-8e4b-a7c47b375b28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Function\Framework\Object">
+      <UniqueIdentifier>{5b25a52b-f33d-4f64-b42b-a1915167d8df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp">
@@ -199,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="Source\Runtime\Resource\ConfigManager\ConfigManager.cpp">
       <Filter>Source Files\Runtime\Resource\ConfigManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Framework\Object\ObjectIDAllocator.cpp">
+      <Filter>Source Files\Runtime\Function\Framework\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -351,6 +360,12 @@
     </ClInclude>
     <ClInclude Include="Source\Runtime\Function\Render\RenderCommon.h">
       <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Render\RenderObject.h">
+      <Filter>Source Files\Runtime\Function\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Framework\Object\ObjectIDAllocator.h">
+      <Filter>Source Files\Runtime\Function\Framework\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

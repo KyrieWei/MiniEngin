@@ -33,6 +33,8 @@ namespace ME
 
 			// parse to json object and read to runtime res object
 			std::string error;
+
+			return true;
 			
 		}
 
@@ -48,6 +50,8 @@ namespace ME
 
 			// write to json object and dump to string
 
+
+			return true;
 		}
 	};
 }

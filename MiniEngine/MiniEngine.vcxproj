@@ -165,6 +165,7 @@
     <ClCompile Include="Source\Runtime\Core\Math\Vector4.cpp" />
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp" />
     <ClCompile Include="Source\Runtime\Engine.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Framework\Object\ObjectIDAllocator.cpp" />
     <ClCompile Include="Source\Runtime\Function\Global\GlobalContext.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\Passes\MainCameraPass.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\Passes\UIPass.cpp" />
@@ -214,12 +215,14 @@
     <ClInclude Include="Source\Runtime\Core\Math\Vector4.h" />
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h" />
     <ClInclude Include="Source\Runtime\Engine.h" />
+    <ClInclude Include="Source\Runtime\Function\Framework\Object\ObjectIDAllocator.h" />
     <ClInclude Include="Source\Runtime\Function\Global\GlobalContext.h" />
     <ClInclude Include="Source\Runtime\Function\Render\Passes\MainCameraPass.h" />
     <ClInclude Include="Source\Runtime\Function\Render\Passes\UIPass.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderCamera.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderCommon.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderEntity.h" />
+    <ClInclude Include="Source\Runtime\Function\Render\RenderObject.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderPass.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderPassBase.h" />
     <ClInclude Include="Source\Runtime\Function\Render\RenderPipeline.h" />

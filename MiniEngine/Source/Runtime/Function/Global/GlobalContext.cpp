@@ -2,6 +2,7 @@
 
 #include "Runtime/Core/Log/LogSystem.h"
 #include "Runtime/Resource/ConfigManager/ConfigManager.h"
+#include "Runtime/Resource/AssetManager/AssetManager.h"
 #include "Runtime/Function/Render/WindowSystem.h"
 #include "Runtime/Function/Render/RenderSystem.h"
 
@@ -16,6 +17,8 @@ namespace ME
 		m_config_manager->Initialize(config_file_path);
 
 		m_logger_system = std::make_shared<LogSystem>();
+
+		m_asset_manager = std::make_shared<AssetManager>();
 
 		m_window_system = std::make_shared<WindowSystem>();
 		WindowCreateInfo window_create_info;
@@ -32,6 +35,8 @@ namespace ME
 		m_render_system.reset();
 		
 		m_window_system.reset();
+
+		m_asset_manager.reset();
 
 		m_logger_system.reset();
 

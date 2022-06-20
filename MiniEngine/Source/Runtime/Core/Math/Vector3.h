@@ -1,4 +1,5 @@
 #pragma once
+#include "Runtime/Core/Math/Math.h"
 #include "Runtime/Core/Meta/Reflection/Reflection.h"
 
 #include <cassert>
@@ -160,6 +161,29 @@ namespace ME
 
 		float squaredLength() const { return x * x + y * y + z * z; }
 
+		void normalize()
+		{
+			float length = std::hypot(x, y, z);
+			if (length == 0.f)
+				return;
+
+			float inv_length = 1.0f / length;
+			x *= inv_length;
+			y *= inv_length;
+			z *= inv_length;
+		}
+
+		Vector3 crossProduct(const Vector3& rhs) const
+		{
+			return Vector3(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x);
+		}
+
+		Vector3 normalizedCopy(void) const
+		{
+			Vector3 ret = *this;
+			ret.normalize();
+			return ret;
+		}
 	};
 }
 

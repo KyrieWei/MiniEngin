@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <memory>
+#include <string>
 
 namespace ME
 {
@@ -32,6 +33,14 @@ namespace ME
 		}
 
 		bool IsValid() const { return m_data != nullptr; }
+	};
+
+	struct MeshSourceDesc
+	{
+		std::string m_mesh_file;
+
+		bool operator==(const MeshSourceDesc& rhs) const { return m_mesh_file == rhs.m_mesh_file; }
+		size_t GetHashValue() const { return std::hash<std::string>{}(m_mesh_file); }
 	};
 
 	struct MeshVertexDataDefinition

@@ -7,6 +7,7 @@ namespace ME
 {
 	class LogSystem;
 	class ConfigManager;
+	class AssetManager;
 	class WindowSystem;
 	class RenderSystem;
 
@@ -21,6 +22,7 @@ namespace ME
 
 	public:
 		std::shared_ptr<LogSystem>		m_logger_system;
+		std::shared_ptr<AssetManager>	m_asset_manager;
 		std::shared_ptr<ConfigManager>	m_config_manager;
 		std::shared_ptr<WindowSystem>	m_window_system;
 		std::shared_ptr<RenderSystem>	m_render_system;
