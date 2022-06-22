@@ -72,6 +72,8 @@ namespace ME
 		}
 	}
 
+	void RenderSystem::SwapLogicRenderData() { m_swap_context.SwapLogicRenderData(); }
+
 	void RenderSystem::ProcessSwapData()
 	{
 		RenderSwapData& swap_data = m_swap_context.GetRenderSwapData();
@@ -89,7 +91,27 @@ namespace ME
 			{
 				GameObjectDesc gobject = swap_data.m_game_object_resource_desc->GetNextProcessObject();
 
-				//for()
+				for (size_t part_index = 0; part_index < 1; part_index++)
+				{
+					RenderEntity render_entity;
+
+					MeshSourceDesc mesh_source;
+					bool is_mesh_load = false;
+					
+					RenderMeshData mesh_data;
+					if (!is_mesh_load)
+					{
+						mesh_data = m_render_resource->LoadMeshData(mesh_source);
+					}
+
+					if (!is_mesh_load)
+					{
+						//m_render_resource->UploadGlobalRenderResource(m_rhi, render_entity, mesh_data);
+					}
+
+				}
+
+
 			}
 		}
 

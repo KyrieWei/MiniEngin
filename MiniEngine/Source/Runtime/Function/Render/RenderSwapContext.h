@@ -53,10 +53,19 @@ namespace ME
 		RenderSwapData& GetLogicSwapData();
 		RenderSwapData& GetRenderSwapData();
 
+		void SwapLogicRenderData();
+		void ResetLevelResourceSwapData();
+		void ResetGameObjectResourceSwapData();
+		void ResetGameObjectToDelete();
+		void ResetCameraSwapData();
+
 	private:
 		uint8_t m_logic_swap_data_index{ LogicSwapDataType };
 		uint8_t m_render_swap_data_index{ RenderSwapDataType };
 		RenderSwapData m_swap_data[SwapDataTypeCount];
+
+		bool IsReadyToSwap() const;
+		void Swap();
 	};
 }
 

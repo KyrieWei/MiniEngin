@@ -60,6 +60,7 @@ namespace ME
 
 		// single thread
 		// exchange data between logic and render contexts
+		g_runtime_global_context.m_render_system->SwapLogicRenderData();
 
 		RenderTick();
 

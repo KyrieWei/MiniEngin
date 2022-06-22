@@ -24,4 +24,40 @@ namespace ME
 	RenderSwapData& RenderSwapContext::GetLogicSwapData() { return m_swap_data[m_logic_swap_data_index]; }
 
 	RenderSwapData& RenderSwapContext::GetRenderSwapData() { return m_swap_data[m_render_swap_data_index]; }
+
+	void RenderSwapContext::SwapLogicRenderData()
+	{
+		if (IsReadyToSwap())
+		{
+			Swap();
+		}
+	}
+
+	bool RenderSwapContext::IsReadyToSwap() const
+	{
+		return !(m_swap_data[m_render_swap_data_index].m_game_object_resource_desc.has_value());
+	}
+
+	void RenderSwapContext::ResetLevelResourceSwapData() {}
+
+	void RenderSwapContext::ResetGameObjectResourceSwapData() 
+	{
+		m_swap_data[m_render_swap_data_index].m_game_object_resource_desc.reset();
+	}
+
+	void RenderSwapContext::ResetGameObjectToDelete() 
+	{
+		//m_swap_data[m_render_swap_data_index].m_game_object_to_delete.reset();
+	}
+
+	void RenderSwapContext::ResetCameraSwapData(){}
+
+	void RenderSwapContext::Swap()
+	{
+		ResetLevelResourceSwapData();
+		ResetGameObjectResourceSwapData();
+		ResetGameObjectToDelete();
+		ResetCameraSwapData();
+		std::swap(m_logic_swap_data_index, m_render_swap_data_index);
+	}
 }

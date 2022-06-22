@@ -28,6 +28,8 @@ namespace ME
 		void Initialize(RenderSystemInitInfo init_info);
 		void Tick();
 
+		void SwapLogicRenderData();
+
 	private:
 		RENDER_PIPELINE_TYPE m_render_pipeline_type{ RENDER_PIPELINE_TYPE::DEFERRED_PIPELINE };
 
