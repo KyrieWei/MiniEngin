@@ -165,7 +165,10 @@
     <ClCompile Include="Source\Runtime\Core\Math\Vector4.cpp" />
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp" />
     <ClCompile Include="Source\Runtime\Engine.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Framework\Level\Level.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Framework\Object\Object.cpp" />
     <ClCompile Include="Source\Runtime\Function\Framework\Object\ObjectIDAllocator.cpp" />
+    <ClCompile Include="Source\Runtime\Function\Framework\World\WorldManager.cpp" />
     <ClCompile Include="Source\Runtime\Function\Global\GlobalContext.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\Passes\MainCameraPass.cpp" />
     <ClCompile Include="Source\Runtime\Function\Render\Passes\UIPass.cpp" />
@@ -215,7 +218,10 @@
     <ClInclude Include="Source\Runtime\Core\Math\Vector4.h" />
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h" />
     <ClInclude Include="Source\Runtime\Engine.h" />
+    <ClInclude Include="Source\Runtime\Function\Framework\Level\Level.h" />
+    <ClInclude Include="Source\Runtime\Function\Framework\Object\Object.h" />
     <ClInclude Include="Source\Runtime\Function\Framework\Object\ObjectIDAllocator.h" />
+    <ClInclude Include="Source\Runtime\Function\Framework\World\WorldManager.h" />
     <ClInclude Include="Source\Runtime\Function\Global\GlobalContext.h" />
     <ClInclude Include="Source\Runtime\Function\Render\Passes\MainCameraPass.h" />
     <ClInclude Include="Source\Runtime\Function\Render\Passes\UIPass.h" />
@@ -240,6 +246,9 @@
     <ClInclude Include="Source\Runtime\Function\UI\WindowUI.h" />
     <ClInclude Include="Source\Runtime\Resource\AssetManager\AssetManager.h" />
     <ClInclude Include="Source\Runtime\Resource\ConfigManager\ConfigManager.h" />
+    <ClInclude Include="Source\Runtime\Resource\ResType\Common\Level.h" />
+    <ClInclude Include="Source\Runtime\Resource\ResType\Common\Object.h" />
+    <ClInclude Include="Source\Runtime\Resource\ResType\Common\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

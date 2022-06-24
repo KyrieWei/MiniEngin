@@ -84,6 +84,18 @@
     <Filter Include="Source Files\Runtime\Function\Framework\Object">
       <UniqueIdentifier>{5b25a52b-f33d-4f64-b42b-a1915167d8df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Runtime\Function\Framework\World">
+      <UniqueIdentifier>{8fab6510-065e-411d-902f-d58561dafb6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Resource\ResType\Common">
+      <UniqueIdentifier>{695446fb-bb94-453a-acb5-8563adfaaefe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Function\Framework\Level">
+      <UniqueIdentifier>{1a4cf56e-86bd-417c-86a8-4d8676da10c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\Function\Framework\Component">
+      <UniqueIdentifier>{48b69675-0c3b-4462-8360-ab837940e12d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp">
@@ -207,6 +219,15 @@
       <Filter>Source Files\Runtime\Resource\ConfigManager</Filter>
     </ClCompile>
     <ClCompile Include="Source\Runtime\Function\Framework\Object\ObjectIDAllocator.cpp">
+      <Filter>Source Files\Runtime\Function\Framework\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Framework\World\WorldManager.cpp">
+      <Filter>Source Files\Runtime\Function\Framework\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Framework\Level\Level.cpp">
+      <Filter>Source Files\Runtime\Function\Framework\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Function\Framework\Object\Object.cpp">
       <Filter>Source Files\Runtime\Function\Framework\Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -365,6 +386,24 @@
       <Filter>Source Files\Runtime\Function\Render</Filter>
     </ClInclude>
     <ClInclude Include="Source\Runtime\Function\Framework\Object\ObjectIDAllocator.h">
+      <Filter>Source Files\Runtime\Function\Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Framework\World\WorldManager.h">
+      <Filter>Source Files\Runtime\Function\Framework\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Resource\ResType\Common\World.h">
+      <Filter>Source Files\Runtime\Resource\ResType\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Resource\ResType\Common\Level.h">
+      <Filter>Source Files\Runtime\Resource\ResType\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Resource\ResType\Common\Object.h">
+      <Filter>Source Files\Runtime\Resource\ResType\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Framework\Level\Level.h">
+      <Filter>Source Files\Runtime\Function\Framework\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Function\Framework\Object\Object.h">
       <Filter>Source Files\Runtime\Function\Framework\Object</Filter>
     </ClInclude>
   </ItemGroup>
