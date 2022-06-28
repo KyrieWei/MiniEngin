@@ -152,6 +152,7 @@
     <ClCompile Include="3rdParty\imgui\imgui_draw.cpp" />
     <ClCompile Include="3rdParty\imgui\imgui_tables.cpp" />
     <ClCompile Include="3rdParty\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="3rdParty\json11\json11.cpp" />
     <ClCompile Include="Source\Editor\Editor.cpp" />
     <ClCompile Include="Source\Editor\EditorUI.cpp" />
     <ClCompile Include="Source\Editor\Main.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="Source\Runtime\Core\Math\Vector3.cpp" />
     <ClCompile Include="Source\Runtime\Core\Math\Vector4.cpp" />
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp" />
+    <ClCompile Include="Source\Runtime\Core\Meta\Serializer\Serializer.cpp" />
     <ClCompile Include="Source\Runtime\Engine.cpp" />
     <ClCompile Include="Source\Runtime\Function\Framework\Level\Level.cpp" />
     <ClCompile Include="Source\Runtime\Function\Framework\Object\Object.cpp" />
@@ -201,6 +203,7 @@
     <ClInclude Include="3rdParty\imgui\imstb_rectpack.h" />
     <ClInclude Include="3rdParty\imgui\imstb_textedit.h" />
     <ClInclude Include="3rdParty\imgui\imstb_truetype.h" />
+    <ClInclude Include="3rdParty\json11\json11.hpp" />
     <ClInclude Include="3rdParty\vulkanmemallocator\vk_mem_alloc.h" />
     <ClInclude Include="Source\Editor\Editor.h" />
     <ClInclude Include="Source\Editor\EditorUI.h" />
@@ -216,7 +219,9 @@
     <ClInclude Include="Source\Runtime\Core\Math\Vector2.h" />
     <ClInclude Include="Source\Runtime\Core\Math\Vector3.h" />
     <ClInclude Include="Source\Runtime\Core\Math\Vector4.h" />
+    <ClInclude Include="Source\Runtime\Core\Meta\Json.h" />
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h" />
+    <ClInclude Include="Source\Runtime\Core\Meta\Serializer\Serializer.h" />
     <ClInclude Include="Source\Runtime\Engine.h" />
     <ClInclude Include="Source\Runtime\Function\Framework\Level\Level.h" />
     <ClInclude Include="Source\Runtime\Function\Framework\Object\Object.h" />

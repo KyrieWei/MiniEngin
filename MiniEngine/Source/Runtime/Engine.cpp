@@ -4,6 +4,7 @@
 #include "Runtime/Function/Render/WindowSystem.h"
 #include "Runtime/Function/Render/RenderSystem.h"
 #include "Runtime/Function/Global/GlobalContext.h"
+#include "Runtime/Function/Framework/World/WorldManager.h"
 
 namespace ME
 {
@@ -56,6 +57,7 @@ namespace ME
 
 	bool MiniEngine::TickOneFrame(float delta_time)
 	{
+		LogicalTick(delta_time);
 		CalculateFPS(delta_time);
 
 		// single thread
@@ -85,6 +87,11 @@ namespace ME
 		}
 
 		m_fps = static_cast<int>(1.f / m_average_duration);
+	}
+
+	void MiniEngine::LogicalTick(float delta_time)
+	{
+		g_runtime_global_context.m_world_manager->Tick(delta_time);
 	}
 
 	bool MiniEngine::RenderTick()

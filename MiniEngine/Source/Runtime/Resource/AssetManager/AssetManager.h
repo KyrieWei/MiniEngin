@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Runtime/Core/Base/Macro.h"
+#include "Runtime/Core/Meta/Serializer/Serializer.h"
 
 #include <string>
 #include <fstream>
@@ -33,9 +34,15 @@ namespace ME
 
 			// parse to json object and read to runtime res object
 			std::string error;
+			auto&& asset_json = PJson::parse(asset_json_text, error);
+			if (!error.empty())
+			{
+				LOG_ERROR("Parse json file {} failed!", asset_url);
+				return false;
+			}
 
+			//PSerializer::Read(asset_json, out_asset);
 			return true;
-			
 		}
 
 		template<typename AssetType>

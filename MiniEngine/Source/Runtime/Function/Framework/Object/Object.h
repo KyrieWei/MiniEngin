@@ -24,10 +24,13 @@ namespace ME
 		bool Load(const ObjectInstanceRes& object_instance_res);
 
 
+		void SetName(std::string name) { m_name = name; }
+
 	private:
 		GObjectID m_id{ k_invalid_gobject_id };
 		std::string m_name;
 		std::string m_definition_url;
 
+		std::vector<Reflection::ReflectionPtr<Component>> m_components;
 	};
 }

@@ -27,7 +27,7 @@ namespace ME
 		int GetFPS() const { return m_fps; }
 
 	protected:
-
+		void LogicalTick(float delta_time);
 		bool RenderTick();
 
 		void CalculateFPS(float delta_time);

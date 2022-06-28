@@ -24,11 +24,11 @@ namespace ME
 		REFLECTION_BODY(ObjectDefinitionRes);
 
 	public:
-
+		std::vector<Reflection::ReflectionPtr<Component>> m_components;
 	};
 
 	REFLECTION_TYPE(ObjectInstanceRes)
-		CLASS(ObjectInstanceRes, Fields)
+	CLASS(ObjectInstanceRes, Fields)
 	{
 		REFLECTION_BODY(ObjectInstanceRes);
 
@@ -36,5 +36,6 @@ namespace ME
 		std::string m_name;
 		std::string m_definition;
 
+		std::vector<Reflection::ReflectionPtr<Component>> m_instanced_components;
 	};
 }

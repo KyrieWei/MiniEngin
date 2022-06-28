@@ -20,7 +20,7 @@ namespace ME
 				std::string value = config_line.substr(seperate_pos + 1, config_line.length() - seperate_pos - 1);
 				if (name == "BinaryRootFolder")
 				{
-					m_root_folder = config_file_path.parent_path() / value;
+					m_root_folder = config_file_path.parent_path().parent_path() / value;
 				}
 				else if (name == "AssetFolder")
 				{
