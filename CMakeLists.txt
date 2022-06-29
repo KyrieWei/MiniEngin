@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
+
+project(MiniEngine VERSION 0.1.0)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(BUILD_SHARED_LIBS OFF)
+
+set(MiniEgine_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+set(CMAKE_INSTALL_PREFIX "${MiniEgine_ROOT_DIR}/Bin")
+set(BINARY_ROOT_DIR "${CMAKE_INSTALL_PREFIX}/")
+
+add_subdirectory(MiniEngine)

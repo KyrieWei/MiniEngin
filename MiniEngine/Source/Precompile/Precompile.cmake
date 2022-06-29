@@ -1,0 +1,5 @@
+set(PRECOMPILE_TOOLS_PATH "${CMAKE_CURRENT_SOURCE_DIR}/Bin")
+set(MiniEngine_PRECOMPILE_PARAMS_IN_PATH "${CMAKE_CURRENT_SOURCE_DIR}/Source/Precompile/Precompile.json.in")
+set(MiniEngine_PRECOMPILE_PARAMS_PATH "${PRECOMPILE_TOOLS_PATH}/Precompile.json")
+configure_file(${MiniEngine_PRECOMPILE_PARAMS_IN_PATH} ${MiniEngine_PRECOMPILE_PARAMS_PATH})
+
