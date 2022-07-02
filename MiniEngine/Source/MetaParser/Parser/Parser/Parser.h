@@ -3,6 +3,7 @@
 #include "Common/Precompiled.h"
 
 #include "Common/SchemaModule.h"
+#include "Cursor/Cursor.h"
 
 #include "Generator/Generator.h"
 
@@ -48,7 +49,7 @@ private:
 
 private:
     bool ParseProject(void);
-    void BuildClassAST();
+    void BuildClassAST(const Cursor& cursor, std::vector<std::string> current_namespace);
     std::string GetIncludeFile(std::string name);
 
 };

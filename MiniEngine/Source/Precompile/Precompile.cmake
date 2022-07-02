@@ -25,7 +25,7 @@ COMMAND
     ${CMAKE_COMMAND} -E echo "*****************************************************"
 
 COMMAND
-    ${PRECOMPILE_PARSER} "${MiniEngine_PRECOMPILE_PARAMS_PATH}" "${PARSER_INPUT}" "${ENGINE_ROOT_DIR}/Source" ${sys_include} "MiniEngine" S 0 0 1
+    ${PRECOMPILE_PARSER} "${MiniEngine_PRECOMPILE_PARAMS_PATH}" "${PARSER_INPUT}" "${ENGINE_ROOT_DIR}/Source" ${sys_include} "MiniEngine" 0
 
 COMMAND
     ${CMAKE_COMMAND} -E echo "+++ Precompile finished +++"

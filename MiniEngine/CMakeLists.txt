@@ -3,7 +3,8 @@ set(THIRD_PARTY_DIR "${ENGINE_ROOT_DIR}/3rdParty")
 set(ENGINE_ASSET_DIR "${ENGINE_ROOT_DIR}/Assets")
 
 
-#add_subdirectory(Source/Runtime)
+add_subdirectory(Source/Runtime)
+add_subdirectory(Source/Editor)
 
 add_subdirectory(Source/MetaParser)
 

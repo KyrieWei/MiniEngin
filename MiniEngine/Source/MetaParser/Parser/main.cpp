@@ -16,6 +16,15 @@ int main(int argc, char* argv[])
 
     if(argv[1] != nullptr && argv[2] != nullptr && argv[3] != nullptr && argv[4] != nullptr && argv[5] != nullptr && argv[6] != nullptr)
     {
+        // debug 
+        std::cout << "Arguments parser: " << std::endl
+                    << "project_input_file: " << argv[1] << std::endl
+                    << "include_file_path: " << argv[2] << std::endl
+                    << "include_path: " << argv[3] << std::endl
+                    << "include_sys: " << argv[4] << std::endl
+                    << "module_name: " << argv[5] << std::endl
+                    << "show_errors: " << argv[6] << std::endl; 
+
         MetaParser::Prepare();
 
         result = Parser(argv[1], argv[2], argv[3], argv[4], argv[5], argv[6]);
@@ -61,6 +70,6 @@ int Parser(std::string project_input_file,
     }
 
     Parser.GenerateFiles();
-    
+
     return 0;
 }
