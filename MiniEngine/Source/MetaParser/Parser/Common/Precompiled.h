@@ -16,5 +16,9 @@
 
 namespace fs = std::filesystem;
 
-
+#include "Meta/MetaDataConfig.h"
 #include "Meta/MetaUtils.h"
+
+#include "mustache.hpp"
+
+namespace Mustache = kainjow::mustache;

@@ -20,7 +20,8 @@ namespace Generator
 
     protected:
         virtual void PrepareStatus(std::string path);
-        
+        virtual void GenClassRenderData(std::shared_ptr<Class> class_temp, Mustache::data& class_def);
+        virtual void GenClassFieldRenderData(std::shared_ptr<Class> class_temp, Mustache::data& field_defs);
         virtual std::string ProcessFileName(std::string path) = 0;
 
         std::string m_out_path{"gen_src"};

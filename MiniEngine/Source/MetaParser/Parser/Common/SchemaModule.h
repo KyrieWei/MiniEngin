@@ -7,5 +7,5 @@ struct SchemaModule
 {
     std::string name;
 
-    std::vector<std::shared_ptr<Class>> classess;
+    std::vector<std::shared_ptr<Class>> classes;
 };

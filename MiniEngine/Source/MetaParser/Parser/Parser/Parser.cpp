@@ -1,4 +1,34 @@
+#include "Common/Precompiled.h"
+#include "LanguageTypes/Class.h"
+
+#include "Generator/ReflectionGenerator.h"
+#include "Generator/SerializerGenerator.h"
 #include "Parser.h"
+
+
+#define RECURSE_NAMESPACES(kind, cursor, method, namespaces) \
+    { \
+        if(kind == CXCursor_Namespace) \
+        { \
+            auto display_name = cursor.GetDisplayName(); \
+            if(!display_name.empty()) \
+            { \
+                namespaces.emplace_back(display_name); \
+                method(cursor, namespaces); \
+                namespaces.pop_back(); \
+            } \
+        } \
+    }
+
+#define TRY_ADD_LANGUAGE_TYPE(handle, container) \
+    { \
+        if(handle->ShouldCompile()) \
+        { \
+            auto file = handle->GetSourceFile(); \
+            m_schema_modules[file].container.emplace_back(handle); \
+            m_type_table[handle->m_display_name] = file; \
+        } \
+    }
 
 void MetaParser::Prepare(void) {}
 
@@ -19,18 +49,41 @@ MetaParser::MetaParser( const std::string project_input_file,
                         m_sys_include(include_sys), m_module_name(module_name), m_is_show_errors(is_show_errors)
 {
     m_work_paths = Utils::Split(include_path, ";");
+
+    m_generators.emplace_back(new Generator::SerializerGenerator(
+        m_work_paths[0], std::bind(&MetaParser::GetIncludeFile, this, std::placeholders::_1)));
+
+    m_generators.emplace_back(new Generator::ReflectionGenerator(
+        m_work_paths[0], std::bind(&MetaParser::GetIncludeFile, this, std::placeholders::_1)));
 }
 
 
 
 MetaParser::~MetaParser(void)
 {
+    for(auto item : m_generators)
+    {
+        delete item;
+    }
+    m_generators.clear();
 
+    if(m_translation_unit)
+    {
+        clang_disposeTranslationUnit(m_translation_unit);
+    }
+
+    if(m_index)
+    {
+        clang_disposeIndex(m_index);
+    }
 }
 
 void MetaParser::Finish(void)
 {
-
+    for(auto generator_iter : m_generators)
+    {
+        generator_iter->Finish();
+    }
 }
 
 bool MetaParser::ParseProject()
@@ -146,16 +199,34 @@ int MetaParser::Parse(void)
 
 void MetaParser::GenerateFiles(void)
 {
+    std::cerr << "Start generate runtime schemas(" << m_schema_modules.size() << ")..." << std::endl;
+    for(auto& schema : m_schema_modules)
+    {
+        for(auto& generator_iter : m_generators)
+        {
+            generator_iter->Generate(schema.first, schema.second);
+        }
+    }
 
+    Finish();
 }
 
 void MetaParser::BuildClassAST(const Cursor& cursor, std::vector<std::string> current_namespace)
 {
     for(auto& child : cursor.GetChildren())
     {
-        //auto kind = child.GetKind();
-
+        auto kind = child.GetKind();
+        
         // actual definition and a class or struct
-        //if(child.)
+        if(child.IsDefinition() && (kind == CXCursor_ClassDecl || kind == CXCursor_StructDecl))
+        {
+            auto class_ptr = std::make_shared<Class>(child, current_namespace);
+            std::cout << class_ptr->GetClassName() << std::endl;
+            TRY_ADD_LANGUAGE_TYPE(class_ptr, classes);
+        }
+        else
+        {
+            RECURSE_NAMESPACES(kind, child, BuildClassAST, current_namespace);
+        }
     }
 }
