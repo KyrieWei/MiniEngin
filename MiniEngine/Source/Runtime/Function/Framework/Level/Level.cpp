@@ -56,7 +56,7 @@ namespace ME
 		m_level_res_url = level_res_url;
 
 		LevelRes level_res;
-		const bool is_load_success = g_runtime_global_context.m_asset_manager->LoadAsset(level_res_url, level_res);
+		const bool is_load_success = true; //= g_runtime_global_context.m_asset_manager->LoadAsset(level_res_url, level_res);
 		if (!is_load_success)
 		{
 			return false;

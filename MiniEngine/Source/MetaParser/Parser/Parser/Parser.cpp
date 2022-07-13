@@ -216,12 +216,12 @@ void MetaParser::BuildClassAST(const Cursor& cursor, std::vector<std::string> cu
     for(auto& child : cursor.GetChildren())
     {
         auto kind = child.GetKind();
-        
+
         // actual definition and a class or struct
         if(child.IsDefinition() && (kind == CXCursor_ClassDecl || kind == CXCursor_StructDecl))
         {
             auto class_ptr = std::make_shared<Class>(child, current_namespace);
-            std::cout << class_ptr->GetClassName() << std::endl;
+
             TRY_ADD_LANGUAGE_TYPE(class_ptr, classes);
         }
         else

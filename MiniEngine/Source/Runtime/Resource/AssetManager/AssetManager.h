@@ -9,6 +9,8 @@
 #include <sstream>
 #include <filesystem>
 
+#include "_generated/serializer/all_serializer.h"
+
 namespace ME
 {
 	class AssetManager
@@ -41,7 +43,7 @@ namespace ME
 				return false;
 			}
 
-			//PSerializer::Read(asset_json, out_asset);
+			PSerializer::Read(asset_json, out_asset);
 			return true;
 		}
 

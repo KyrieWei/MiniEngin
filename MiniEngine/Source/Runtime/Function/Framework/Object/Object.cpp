@@ -31,7 +31,7 @@ namespace ME
 
 		ObjectDefinitionRes definition_res;
 
-		const bool is_loaded_success = g_runtime_global_context.m_asset_manager->LoadAsset(m_definition_url, definition_res);
+		const bool is_loaded_success = true; // = g_runtime_global_context.m_asset_manager->LoadAsset(m_definition_url, definition_res);
 		if (!is_loaded_success)
 		{
 			return false;

@@ -15,9 +15,9 @@ namespace Generator
     void SerializerGenerator::PrepareStatus(std::string path)
     {
         GeneratorInterface::PrepareStatus(path);
-        TemplateManager::GetInstance()->LoadTemplates(m_root_path, "allSerializer.h");
-        TemplateManager::GetInstance()->LoadTemplates(m_root_path, "allSerializer.ipp");
-        TemplateManager::GetInstance()->LoadTemplates(m_root_path, "commonSerializerGenFile");
+        TemplateManager::GetInstance()->LoadTemplates(m_root_path, "AllSerializer.h");
+        TemplateManager::GetInstance()->LoadTemplates(m_root_path, "AllSerializer.ipp");
+        TemplateManager::GetInstance()->LoadTemplates(m_root_path, "CommonSerializerGenFile");
         return;
     }
 
@@ -86,7 +86,7 @@ namespace Generator
         muatache_data.set("class_defines", class_defines);
         muatache_data.set("include_headfiles", include_headfiles);
         std::string render_string =
-            TemplateManager::GetInstance()->RenderByTemplate("commonSerializerGenFile", muatache_data);
+            TemplateManager::GetInstance()->RenderByTemplate("CommonSerializerGenFile", muatache_data);
         Utils::SaveFile(render_string, file_path);
 
         m_include_headfiles.push_back(

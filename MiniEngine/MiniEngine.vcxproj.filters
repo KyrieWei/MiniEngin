@@ -102,6 +102,15 @@
     <Filter Include="Source Files\Runtime\Core\Meta\Serializer">
       <UniqueIdentifier>{eff11402-56e4-4399-926f-0602fddf8766}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Runtime\_generated">
+      <UniqueIdentifier>{1880a6f2-f721-4ea8-8750-b8bb1ccbdc44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\_generated\reflection">
+      <UniqueIdentifier>{0d181a9a-6a85-4329-a820-f1c6496a427c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\_generated\serializer">
+      <UniqueIdentifier>{1beaff8a-e0a0-4bed-9cd9-1fd4fe007c9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp">
@@ -426,6 +435,69 @@
     </ClInclude>
     <ClInclude Include="Source\Runtime\Core\Meta\Serializer\Serializer.h">
       <Filter>Source Files\Runtime\Core\Meta\Serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\reflection\all_reflection.h">
+      <Filter>Source Files\Runtime\_generated\reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\reflection\Level.reflection.gen.h">
+      <Filter>Source Files\Runtime\_generated\reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\reflection\Matrix4.reflection.gen.h">
+      <Filter>Source Files\Runtime\_generated\reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\reflection\Object.reflection.gen.h">
+      <Filter>Source Files\Runtime\_generated\reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\reflection\Quaternion.reflection.gen.h">
+      <Filter>Source Files\Runtime\_generated\reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\reflection\RenderObject.reflection.gen.h">
+      <Filter>Source Files\Runtime\_generated\reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\reflection\Vector2.reflection.gen.h">
+      <Filter>Source Files\Runtime\_generated\reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\reflection\Vector3.reflection.gen.h">
+      <Filter>Source Files\Runtime\_generated\reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\reflection\Vector4.reflection.gen.h">
+      <Filter>Source Files\Runtime\_generated\reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\reflection\World.reflection.gen.h">
+      <Filter>Source Files\Runtime\_generated\reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\serializer\all_serializer.h">
+      <Filter>Source Files\Runtime\_generated\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\serializer\all_serializer.ipp">
+      <Filter>Source Files\Runtime\_generated\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\serializer\Level.serializer.gen.h">
+      <Filter>Source Files\Runtime\_generated\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\serializer\Matrix4.serializer.gen.h">
+      <Filter>Source Files\Runtime\_generated\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\serializer\Object.serializer.gen.h">
+      <Filter>Source Files\Runtime\_generated\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\serializer\Quaternion.serializer.gen.h">
+      <Filter>Source Files\Runtime\_generated\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\serializer\RenderObject.serializer.gen.h">
+      <Filter>Source Files\Runtime\_generated\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\serializer\Vector2.serializer.gen.h">
+      <Filter>Source Files\Runtime\_generated\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\serializer\Vector3.serializer.gen.h">
+      <Filter>Source Files\Runtime\_generated\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\serializer\Vector4.serializer.gen.h">
+      <Filter>Source Files\Runtime\_generated\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\_generated\serializer\World.serializer.gen.h">
+      <Filter>Source Files\Runtime\_generated\serializer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

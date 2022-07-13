@@ -8,9 +8,15 @@
 
 namespace ME
 {
+#if defined(__REFLECTION_PARSER__)
+#define META(...) __attribute__((annotate(#__VA_ARGS__)))
+#define CLASS(class_name, ...) class __attribute__((annotate(#__VA_ARGS__))) class_name
+#define STRUCT(struct_name, ...) struct __attribute__((annotate(#__VA_ARGS__))) struct_name
+#else
 #define META(...)
 #define CLASS(class_name, ...) class class_name
 #define STRUCT(struct_name, ...) struct struct_name
+#endif
 
 #define REFLECTION_BODY(class_name) \
 	friend class Reflection::TypeFieldReflectionOperator::Type##class_name##Operator; \

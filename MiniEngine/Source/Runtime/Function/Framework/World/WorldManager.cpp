@@ -53,7 +53,7 @@ namespace ME
 		LOG_INFO("Loading world: {}", world_url);
 
 		WorldRes world_res;
-		const bool is_world_load_success = g_runtime_global_context.m_asset_manager->LoadAsset(world_url, world_res);
+		const bool is_world_load_success = true; //= g_runtime_global_context.m_asset_manager->LoadAsset(world_url, world_res);
 		if (!is_world_load_success)
 		{
 			return false;

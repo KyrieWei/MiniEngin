@@ -36,10 +36,8 @@ bool Class::ShouldCompile() const { return ShouldCompileFields(); }
 
 bool Class::ShouldCompileFields() const
 {
-    // return m_meta_data.GetFlag(NativeProperty::All) || m_meta_data.GetFlag(NativeProperty::Fields) ||
-    //         m_meta_data.GetFlag(NativeProperty::WhiteListFields);
-
-    return true;
+    return m_meta_data.GetFlag(NativeProperty::All) || m_meta_data.GetFlag(NativeProperty::Fields) ||
+            m_meta_data.GetFlag(NativeProperty::WhiteListFields);
 }
 
 std::string Class::GetClassName() { return m_name; }

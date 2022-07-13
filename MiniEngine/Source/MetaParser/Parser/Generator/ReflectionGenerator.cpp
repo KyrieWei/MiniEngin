@@ -101,7 +101,7 @@ namespace Generator
         mustache_data.set("class_defines", class_defines);
         mustache_data.set("include_headfiles", include_headfiles);
         std::string render_string =
-            TemplateManager::GetInstance()->RenderByTemplate("commonReflectionFile", mustache_data);
+            TemplateManager::GetInstance()->RenderByTemplate("CommonReflectionFile", mustache_data);
         Utils::SaveFile(render_string, file_path);
 
         for (auto class_item : class_names)
@@ -130,7 +130,7 @@ namespace Generator
         mustache_data.set("include_headfiles", include_headfiles);
         mustache_data.set("class_defines", class_defines);
         std::string render_string =
-            TemplateManager::GetInstance()->RenderByTemplate("allReflectionFile", mustache_data);
+            TemplateManager::GetInstance()->RenderByTemplate("AllReflectionFile", mustache_data);
         Utils::SaveFile(render_string, m_out_path + "/all_reflection.h");        
     }
 
