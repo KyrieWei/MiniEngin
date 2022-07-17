@@ -100,9 +100,9 @@ namespace Generator
         mustache_data.set("class_defines", m_class_defines);
         mustache_data.set("include_headfiles", m_include_headfiles);
 
-        std::string render_string = TemplateManager::GetInstance()->RenderByTemplate("allSerializer.h", mustache_data);
+        std::string render_string = TemplateManager::GetInstance()->RenderByTemplate("AllSerializer.h", mustache_data);
         Utils::SaveFile(render_string, m_out_path + "/all_serializer.h");
-        render_string = TemplateManager::GetInstance()->RenderByTemplate("allSerializer.ipp", mustache_data);
+        render_string = TemplateManager::GetInstance()->RenderByTemplate("AllSerializer.ipp", mustache_data);
         Utils::SaveFile(render_string, m_out_path + "/all_serializer.ipp");
     }
 

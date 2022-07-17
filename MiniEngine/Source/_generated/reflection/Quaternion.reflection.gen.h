@@ -33,9 +33,9 @@ namespace TypeFieldReflectionOparator{
         
         
         ClassFunctionTuple* f_class_function_tuple_Quaternion=new ClassFunctionTuple(
-            &TypeFieldReflectionOparator::TypeQuaternionOperator::getQuaternionBaseClassReflectionInstanceList,
-            &TypeFieldReflectionOparator::TypeQuaternionOperator::constructorWithJson,
-            &TypeFieldReflectionOparator::TypeQuaternionOperator::writeByName);
+            &TypeFieldReflectionOparator::TypeQuaternionOperator::GetQuaternionBaseClassReflectionInstanceList,
+            &TypeFieldReflectionOparator::TypeQuaternionOperator::ConstructorWithJson,
+            &TypeFieldReflectionOparator::TypeQuaternionOperator::WriteByName);
         REGISTER_BASE_CLASS_TO_MAP("Quaternion", f_class_function_tuple_Quaternion);
     }
 namespace TypeWrappersRegister{

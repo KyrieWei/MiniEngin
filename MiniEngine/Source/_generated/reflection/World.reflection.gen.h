@@ -53,16 +53,16 @@ namespace ArrayReflectionOperator{
         
         
         ArrayFunctionTuple* f_array_tuple_stdSSvectorLstdSSstringR = new  ArrayFunctionTuple(
-            &ArrayReflectionOperator::ArraystdSSvectorLstdSSstringROperator::set,
-            &ArrayReflectionOperator::ArraystdSSvectorLstdSSstringROperator::get,
-            &ArrayReflectionOperator::ArraystdSSvectorLstdSSstringROperator::getSize,
-            &ArrayReflectionOperator::ArraystdSSvectorLstdSSstringROperator::getArrayTypeName,
-            &ArrayReflectionOperator::ArraystdSSvectorLstdSSstringROperator::getElementTypeName);
+            &ArrayReflectionOperator::ArraystdSSvectorLstdSSstringROperator::Set,
+            &ArrayReflectionOperator::ArraystdSSvectorLstdSSstringROperator::Get,
+            &ArrayReflectionOperator::ArraystdSSvectorLstdSSstringROperator::GetSize,
+            &ArrayReflectionOperator::ArraystdSSvectorLstdSSstringROperator::GetArrayTypeName,
+            &ArrayReflectionOperator::ArraystdSSvectorLstdSSstringROperator::GetElementTypeName);
         REGISTER_ARRAY_TO_MAP("std::vector<std::string>", f_array_tuple_stdSSvectorLstdSSstringR);
         ClassFunctionTuple* f_class_function_tuple_WorldRes=new ClassFunctionTuple(
-            &TypeFieldReflectionOparator::TypeWorldResOperator::getWorldResBaseClassReflectionInstanceList,
-            &TypeFieldReflectionOparator::TypeWorldResOperator::constructorWithJson,
-            &TypeFieldReflectionOparator::TypeWorldResOperator::writeByName);
+            &TypeFieldReflectionOparator::TypeWorldResOperator::GetWorldResBaseClassReflectionInstanceList,
+            &TypeFieldReflectionOparator::TypeWorldResOperator::ConstructorWithJson,
+            &TypeFieldReflectionOparator::TypeWorldResOperator::WriteByName);
         REGISTER_BASE_CLASS_TO_MAP("WorldRes", f_class_function_tuple_WorldRes);
     }
 namespace TypeWrappersRegister{

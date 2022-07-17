@@ -165,6 +165,7 @@
     <ClCompile Include="Source\Runtime\Core\Math\Vector3.cpp" />
     <ClCompile Include="Source\Runtime\Core\Math\Vector4.cpp" />
     <ClCompile Include="Source\Runtime\Core\Meta\Reflection\Reflection.cpp" />
+    <ClCompile Include="Source\Runtime\Core\Meta\Reflection\ReflectionRegister.cpp" />
     <ClCompile Include="Source\Runtime\Core\Meta\Serializer\Serializer.cpp" />
     <ClCompile Include="Source\Runtime\Engine.cpp" />
     <ClCompile Include="Source\Runtime\Function\Framework\Level\Level.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Source\Runtime\Core\Math\Vector4.h" />
     <ClInclude Include="Source\Runtime\Core\Meta\Json.h" />
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h" />
+    <ClInclude Include="Source\Runtime\Core\Meta\Reflection\ReflectionRegister.h" />
     <ClInclude Include="Source\Runtime\Core\Meta\Serializer\Serializer.h" />
     <ClInclude Include="Source\Runtime\Engine.h" />
     <ClInclude Include="Source\Runtime\Function\Framework\Level\Level.h" />

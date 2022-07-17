@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Runtime/Core/Meta/Json.h"
+
 #include <functional>
 #include <string>
 #include <unordered_map>
@@ -31,8 +33,157 @@ namespace ME
 		} \
 	};
 
+#define REGISTER_FIELD_TO_MAP(name, value) TypeMetaRegisterInterface::RegisterToFieldMap(name, value);
+#define REGISTER_BASE_CLASS_TO_MAP(name, value) TypeMetaRegisterInterface::RegisterToClassMap(name, value);
+#define REGISTER_ARRAY_TO_MAP(name, value) TypeMetaRegisterInterface::RegisterToArrayMap(name, value);
+#define UNREGISTER_ALL TypeMetaRegisterInterface::UnregisterAll();
+
 	namespace Reflection
 	{
+		class TypeMeta;
+		class FieldAccessor;
+		class ArrayAccessor;
+		class ReflectionInstance;
+	}
+
+	typedef std::function<void(void*, void*)>		SetFunction;
+	typedef std::function<void* (void*)>			GetFunction;
+	typedef std::function<const char* ()>			GetNameFunction;
+	typedef std::function<void(int, void*, void*)>	SetArrayFunc;
+	typedef std::function<void* (int, void*)>		GetArrayFunc;
+	typedef std::function<int(void*)>				GetSizeFunc;
+	typedef std::function<bool()>					GetBoolFunc;
+
+	typedef std::function<void* (const PJson&)>		ConstructorWithPJson;
+	typedef std::function<PJson(void*)>				WritePJsonByName;
+	typedef std::function<int(Reflection::ReflectionInstance*&, void*)> GetBaseClassReflectionInstanceListFunc;
+
+	typedef std::tuple<SetFunction, GetFunction, GetNameFunction, GetNameFunction, GetNameFunction, GetBoolFunc> FieldFunctionTuple;
+	typedef std::tuple<GetBaseClassReflectionInstanceListFunc, ConstructorWithPJson, WritePJsonByName> ClassFunctionTuple;
+	typedef std::tuple<SetArrayFunc, GetArrayFunc, GetSizeFunc, GetNameFunction, GetNameFunction> ArrayFunctionTuple;
+
+
+	namespace Reflection
+	{
+
+		class TypeMetaRegisterInterface
+		{
+		public:
+			static void RegisterToClassMap(const char* name, ClassFunctionTuple* value);
+			static void RegisterToFieldMap(const char* name, FieldFunctionTuple* value);
+			static void RegisterToArrayMap(const char* name, ArrayFunctionTuple* value);
+
+			static void UnregisterAll();
+		};
+
+		class TypeMeta
+		{
+			friend class FieldAccessor;
+			friend class ArrayAccessor;
+			friend class TypeMetaRegisterInterface;
+
+		public:
+			TypeMeta();
+
+			static TypeMeta NewMetaFromName(std::string type_name);
+
+			static bool NewArrayAccessorFromName(std::string array_type_name, ArrayAccessor& accessor);
+			static ReflectionInstance NewFromNameAndPJson(std::string type_name, const PJson& json_context);
+			static PJson WriteByName(std::string type_name, void* instance);
+
+			std::string GetTypeName();
+
+			int GetFieldsList(FieldAccessor*& out_list);
+
+			int GetBaseClassReflectionInstanceList(ReflectionInstance*& out_list, void* instance);
+
+			FieldAccessor GetFieldByName(const char* name);
+
+			bool IsValid() { return m_is_valid; }
+
+			TypeMeta& operator=(const TypeMeta& dest);
+
+		private:
+			TypeMeta(std::string type_name);
+
+		private:
+			std::vector<FieldAccessor, std::allocator<FieldAccessor>> m_fields;
+
+			std::string m_type_name;
+
+			bool m_is_valid;
+		};
+
+		class FieldAccessor
+		{
+			friend class TypeMeta;
+
+		public:
+			FieldAccessor();
+
+			void* Get(void* instance);
+			void  Set(void* instance, void* value);
+
+			TypeMeta GetOwnerTypeMeta();
+
+			bool GetTypeMeta(TypeMeta& field_type);
+			const char* GetFieldName() const;
+			const char* GetFieldTypeName();
+			bool		IsArrayType();
+
+			FieldAccessor& operator=(const FieldAccessor& dest);
+
+		private:
+			FieldAccessor(FieldFunctionTuple* functions);
+
+		private:
+			FieldFunctionTuple* m_functions;
+			const char* m_field_name;
+			const char* m_field_type_name;
+		};
+
+		class ArrayAccessor
+		{
+			friend class TypeMeta;
+
+		public:
+			ArrayAccessor();
+			const char* GetArrayTypeName(); 
+			const char* GetElementTypeName();
+			void		Set(int index, void* instance, void* element_value);
+
+			void* Get(int index, void* instance);
+			int	  GetSize(void* instance);
+
+			ArrayAccessor& operator=(ArrayAccessor& dest);
+
+		private:
+			ArrayAccessor(ArrayFunctionTuple* array_func);
+
+		private:
+
+			ArrayFunctionTuple* m_func;
+			const char* m_array_type_name;
+			const char* m_element_type_name;
+		};
+
+		class ReflectionInstance
+		{
+		public:
+			ReflectionInstance(TypeMeta meta, void* instance) : m_meta(meta), m_instance(instance) {}
+			ReflectionInstance() : m_meta(), m_instance(nullptr) {}
+
+			ReflectionInstance& operator=(ReflectionInstance& dest);
+
+			ReflectionInstance& operator=(ReflectionInstance&& dest);
+
+		private:
+			TypeMeta m_meta;
+			void* m_instance;
+		};
+
+
+
 		template<typename T>
 		class ReflectionPtr
 		{

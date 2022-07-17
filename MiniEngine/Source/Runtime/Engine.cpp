@@ -1,6 +1,8 @@
 #include "Engine.h"
 
 #include "Runtime/Core/Base/Macro.h"
+#include "Runtime/Core/Meta/Reflection/ReflectionRegister.h"
+
 #include "Runtime/Function/Render/WindowSystem.h"
 #include "Runtime/Function/Render/RenderSystem.h"
 #include "Runtime/Function/Global/GlobalContext.h"
@@ -12,6 +14,8 @@ namespace ME
 
 	void MiniEngine::StartEngine(const std::string& config_file_path)
 	{
+		Reflection::TypeMetaRegister::Register();
+
 		g_runtime_global_context.StartSystems(config_file_path);
 
 		LOG_INFO("Engine Start");

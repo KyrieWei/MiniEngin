@@ -65,27 +65,27 @@ namespace Reflection{
 
     void TypeWrapperRegister_{{class_name}}(){
         {{#class_field_defines}}FieldFunctionTuple* f_field_function_tuple_{{class_field_name}}=new FieldFunctionTuple(
-            &TypeFieldReflectionOparator::Type{{class_name}}Operator::set_{{class_field_name}},
-            &TypeFieldReflectionOparator::Type{{class_name}}Operator::get_{{class_field_name}},
-            &TypeFieldReflectionOparator::Type{{class_name}}Operator::getClassName,
-            &TypeFieldReflectionOparator::Type{{class_name}}Operator::getFieldName_{{class_field_name}},
-            &TypeFieldReflectionOparator::Type{{class_name}}Operator::getFieldTypeName_{{class_field_name}},
-            &TypeFieldReflectionOparator::Type{{class_name}}Operator::isArray_{{class_field_name}});
+            &TypeFieldReflectionOparator::Type{{class_name}}Operator::Set_{{class_field_name}},
+            &TypeFieldReflectionOparator::Type{{class_name}}Operator::Get_{{class_field_name}},
+            &TypeFieldReflectionOparator::Type{{class_name}}Operator::GetClassName,
+            &TypeFieldReflectionOparator::Type{{class_name}}Operator::GetFieldName_{{class_field_name}},
+            &TypeFieldReflectionOparator::Type{{class_name}}Operator::GetFieldTypeName_{{class_field_name}},
+            &TypeFieldReflectionOparator::Type{{class_name}}Operator::IsArray_{{class_field_name}});
         REGISTER_FIELD_TO_MAP("{{class_name}}", f_field_function_tuple_{{class_field_name}});
         {{/class_field_defines}}
         
         {{#vector_exist}}{{#vector_defines}}ArrayFunctionTuple* f_array_tuple_{{vector_useful_name}} = new  ArrayFunctionTuple(
-            &ArrayReflectionOperator::Array{{vector_useful_name}}Operator::set,
-            &ArrayReflectionOperator::Array{{vector_useful_name}}Operator::get,
-            &ArrayReflectionOperator::Array{{vector_useful_name}}Operator::getSize,
-            &ArrayReflectionOperator::Array{{vector_useful_name}}Operator::getArrayTypeName,
-            &ArrayReflectionOperator::Array{{vector_useful_name}}Operator::getElementTypeName);
+            &ArrayReflectionOperator::Array{{vector_useful_name}}Operator::Set,
+            &ArrayReflectionOperator::Array{{vector_useful_name}}Operator::Get,
+            &ArrayReflectionOperator::Array{{vector_useful_name}}Operator::GetSize,
+            &ArrayReflectionOperator::Array{{vector_useful_name}}Operator::GetArrayTypeName,
+            &ArrayReflectionOperator::Array{{vector_useful_name}}Operator::GetElementTypeName);
         REGISTER_ARRAY_TO_MAP("{{{vector_type_name}}}", f_array_tuple_{{vector_useful_name}});
         {{/vector_defines}}{{/vector_exist}}
         {{#class_need_register}}ClassFunctionTuple* f_class_function_tuple_{{class_name}}=new ClassFunctionTuple(
-            &TypeFieldReflectionOparator::Type{{class_name}}Operator::get{{class_name}}BaseClassReflectionInstanceList,
-            &TypeFieldReflectionOparator::Type{{class_name}}Operator::constructorWithJson,
-            &TypeFieldReflectionOparator::Type{{class_name}}Operator::writeByName);
+            &TypeFieldReflectionOparator::Type{{class_name}}Operator::Get{{class_name}}BaseClassReflectionInstanceList,
+            &TypeFieldReflectionOparator::Type{{class_name}}Operator::ConstructorWithJson,
+            &TypeFieldReflectionOparator::Type{{class_name}}Operator::WriteByName);
         REGISTER_BASE_CLASS_TO_MAP("{{class_name}}", f_class_function_tuple_{{class_name}});
         {{/class_need_register}}
     }{{/class_defines}}

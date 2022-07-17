@@ -33,9 +33,9 @@ namespace TypeFieldReflectionOparator{
         
         
         ClassFunctionTuple* f_class_function_tuple_Matrix4x4_=new ClassFunctionTuple(
-            &TypeFieldReflectionOparator::TypeMatrix4x4_Operator::getMatrix4x4_BaseClassReflectionInstanceList,
-            &TypeFieldReflectionOparator::TypeMatrix4x4_Operator::constructorWithJson,
-            &TypeFieldReflectionOparator::TypeMatrix4x4_Operator::writeByName);
+            &TypeFieldReflectionOparator::TypeMatrix4x4_Operator::GetMatrix4x4_BaseClassReflectionInstanceList,
+            &TypeFieldReflectionOparator::TypeMatrix4x4_Operator::ConstructorWithJson,
+            &TypeFieldReflectionOparator::TypeMatrix4x4_Operator::WriteByName);
         REGISTER_BASE_CLASS_TO_MAP("Matrix4x4_", f_class_function_tuple_Matrix4x4_);
     }
 namespace TypeWrappersRegister{

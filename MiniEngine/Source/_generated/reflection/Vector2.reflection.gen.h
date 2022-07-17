@@ -33,9 +33,9 @@ namespace TypeFieldReflectionOparator{
         
         
         ClassFunctionTuple* f_class_function_tuple_Vector2=new ClassFunctionTuple(
-            &TypeFieldReflectionOparator::TypeVector2Operator::getVector2BaseClassReflectionInstanceList,
-            &TypeFieldReflectionOparator::TypeVector2Operator::constructorWithJson,
-            &TypeFieldReflectionOparator::TypeVector2Operator::writeByName);
+            &TypeFieldReflectionOparator::TypeVector2Operator::GetVector2BaseClassReflectionInstanceList,
+            &TypeFieldReflectionOparator::TypeVector2Operator::ConstructorWithJson,
+            &TypeFieldReflectionOparator::TypeVector2Operator::WriteByName);
         REGISTER_BASE_CLASS_TO_MAP("Vector2", f_class_function_tuple_Vector2);
     }
 namespace TypeWrappersRegister{

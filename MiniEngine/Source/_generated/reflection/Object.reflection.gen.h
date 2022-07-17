@@ -35,9 +35,9 @@ namespace TypeFieldReflectionOparator{
         
         
         ClassFunctionTuple* f_class_function_tuple_ComponentDefinitionRes=new ClassFunctionTuple(
-            &TypeFieldReflectionOparator::TypeComponentDefinitionResOperator::getComponentDefinitionResBaseClassReflectionInstanceList,
-            &TypeFieldReflectionOparator::TypeComponentDefinitionResOperator::constructorWithJson,
-            &TypeFieldReflectionOparator::TypeComponentDefinitionResOperator::writeByName);
+            &TypeFieldReflectionOparator::TypeComponentDefinitionResOperator::GetComponentDefinitionResBaseClassReflectionInstanceList,
+            &TypeFieldReflectionOparator::TypeComponentDefinitionResOperator::ConstructorWithJson,
+            &TypeFieldReflectionOparator::TypeComponentDefinitionResOperator::WriteByName);
         REGISTER_BASE_CLASS_TO_MAP("ComponentDefinitionRes", f_class_function_tuple_ComponentDefinitionRes);
     }namespace TypeFieldReflectionOparator{
     class TypeObjectDefinitionResOperator{
@@ -88,16 +88,16 @@ namespace ArrayReflectionOperator{
         
         
         ArrayFunctionTuple* f_array_tuple_stdSSvectorLReflectionSSReflectionPtrLComponentRR = new  ArrayFunctionTuple(
-            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::set,
-            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::get,
-            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::getSize,
-            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::getArrayTypeName,
-            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::getElementTypeName);
+            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::Set,
+            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::Get,
+            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::GetSize,
+            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::GetArrayTypeName,
+            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::GetElementTypeName);
         REGISTER_ARRAY_TO_MAP("std::vector<Reflection::ReflectionPtr<Component>>", f_array_tuple_stdSSvectorLReflectionSSReflectionPtrLComponentRR);
         ClassFunctionTuple* f_class_function_tuple_ObjectDefinitionRes=new ClassFunctionTuple(
-            &TypeFieldReflectionOparator::TypeObjectDefinitionResOperator::getObjectDefinitionResBaseClassReflectionInstanceList,
-            &TypeFieldReflectionOparator::TypeObjectDefinitionResOperator::constructorWithJson,
-            &TypeFieldReflectionOparator::TypeObjectDefinitionResOperator::writeByName);
+            &TypeFieldReflectionOparator::TypeObjectDefinitionResOperator::GetObjectDefinitionResBaseClassReflectionInstanceList,
+            &TypeFieldReflectionOparator::TypeObjectDefinitionResOperator::ConstructorWithJson,
+            &TypeFieldReflectionOparator::TypeObjectDefinitionResOperator::WriteByName);
         REGISTER_BASE_CLASS_TO_MAP("ObjectDefinitionRes", f_class_function_tuple_ObjectDefinitionRes);
     }namespace TypeFieldReflectionOparator{
     class TypeObjectInstanceResOperator{
@@ -148,16 +148,16 @@ namespace ArrayReflectionOperator{
         
         
         ArrayFunctionTuple* f_array_tuple_stdSSvectorLReflectionSSReflectionPtrLComponentRR = new  ArrayFunctionTuple(
-            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::set,
-            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::get,
-            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::getSize,
-            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::getArrayTypeName,
-            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::getElementTypeName);
+            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::Set,
+            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::Get,
+            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::GetSize,
+            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::GetArrayTypeName,
+            &ArrayReflectionOperator::ArraystdSSvectorLReflectionSSReflectionPtrLComponentRROperator::GetElementTypeName);
         REGISTER_ARRAY_TO_MAP("std::vector<Reflection::ReflectionPtr<Component>>", f_array_tuple_stdSSvectorLReflectionSSReflectionPtrLComponentRR);
         ClassFunctionTuple* f_class_function_tuple_ObjectInstanceRes=new ClassFunctionTuple(
-            &TypeFieldReflectionOparator::TypeObjectInstanceResOperator::getObjectInstanceResBaseClassReflectionInstanceList,
-            &TypeFieldReflectionOparator::TypeObjectInstanceResOperator::constructorWithJson,
-            &TypeFieldReflectionOparator::TypeObjectInstanceResOperator::writeByName);
+            &TypeFieldReflectionOparator::TypeObjectInstanceResOperator::GetObjectInstanceResBaseClassReflectionInstanceList,
+            &TypeFieldReflectionOparator::TypeObjectInstanceResOperator::ConstructorWithJson,
+            &TypeFieldReflectionOparator::TypeObjectInstanceResOperator::WriteByName);
         REGISTER_BASE_CLASS_TO_MAP("ObjectInstanceRes", f_class_function_tuple_ObjectInstanceRes);
     }
 namespace TypeWrappersRegister{

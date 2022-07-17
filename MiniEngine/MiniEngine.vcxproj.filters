@@ -251,6 +251,9 @@
     <ClCompile Include="Source\Runtime\Core\Meta\Serializer\Serializer.cpp">
       <Filter>Source Files\Runtime\Core\Meta\Serializer</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Runtime\Core\Meta\Reflection\ReflectionRegister.cpp">
+      <Filter>Source Files\Runtime\Core\Meta\Reflection</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Runtime\Core\Meta\Reflection\Reflection.h">
@@ -498,6 +501,9 @@
     </ClInclude>
     <ClInclude Include="Source\_generated\serializer\World.serializer.gen.h">
       <Filter>Source Files\Runtime\_generated\serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Core\Meta\Reflection\ReflectionRegister.h">
+      <Filter>Source Files\Runtime\Core\Meta\Reflection</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

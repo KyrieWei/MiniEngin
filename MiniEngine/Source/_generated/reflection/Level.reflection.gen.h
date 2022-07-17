@@ -53,16 +53,16 @@ namespace ArrayReflectionOperator{
         
         
         ArrayFunctionTuple* f_array_tuple_stdSSvectorLObjectInstanceResR = new  ArrayFunctionTuple(
-            &ArrayReflectionOperator::ArraystdSSvectorLObjectInstanceResROperator::set,
-            &ArrayReflectionOperator::ArraystdSSvectorLObjectInstanceResROperator::get,
-            &ArrayReflectionOperator::ArraystdSSvectorLObjectInstanceResROperator::getSize,
-            &ArrayReflectionOperator::ArraystdSSvectorLObjectInstanceResROperator::getArrayTypeName,
-            &ArrayReflectionOperator::ArraystdSSvectorLObjectInstanceResROperator::getElementTypeName);
+            &ArrayReflectionOperator::ArraystdSSvectorLObjectInstanceResROperator::Set,
+            &ArrayReflectionOperator::ArraystdSSvectorLObjectInstanceResROperator::Get,
+            &ArrayReflectionOperator::ArraystdSSvectorLObjectInstanceResROperator::GetSize,
+            &ArrayReflectionOperator::ArraystdSSvectorLObjectInstanceResROperator::GetArrayTypeName,
+            &ArrayReflectionOperator::ArraystdSSvectorLObjectInstanceResROperator::GetElementTypeName);
         REGISTER_ARRAY_TO_MAP("std::vector<ObjectInstanceRes>", f_array_tuple_stdSSvectorLObjectInstanceResR);
         ClassFunctionTuple* f_class_function_tuple_LevelRes=new ClassFunctionTuple(
-            &TypeFieldReflectionOparator::TypeLevelResOperator::getLevelResBaseClassReflectionInstanceList,
-            &TypeFieldReflectionOparator::TypeLevelResOperator::constructorWithJson,
-            &TypeFieldReflectionOparator::TypeLevelResOperator::writeByName);
+            &TypeFieldReflectionOparator::TypeLevelResOperator::GetLevelResBaseClassReflectionInstanceList,
+            &TypeFieldReflectionOparator::TypeLevelResOperator::ConstructorWithJson,
+            &TypeFieldReflectionOparator::TypeLevelResOperator::WriteByName);
         REGISTER_BASE_CLASS_TO_MAP("LevelRes", f_class_function_tuple_LevelRes);
     }
 namespace TypeWrappersRegister{

@@ -34,9 +34,9 @@ namespace TypeFieldReflectionOparator{
         
         
         ClassFunctionTuple* f_class_function_tuple_GameObjectMeshDesc=new ClassFunctionTuple(
-            &TypeFieldReflectionOparator::TypeGameObjectMeshDescOperator::getGameObjectMeshDescBaseClassReflectionInstanceList,
-            &TypeFieldReflectionOparator::TypeGameObjectMeshDescOperator::constructorWithJson,
-            &TypeFieldReflectionOparator::TypeGameObjectMeshDescOperator::writeByName);
+            &TypeFieldReflectionOparator::TypeGameObjectMeshDescOperator::GetGameObjectMeshDescBaseClassReflectionInstanceList,
+            &TypeFieldReflectionOparator::TypeGameObjectMeshDescOperator::ConstructorWithJson,
+            &TypeFieldReflectionOparator::TypeGameObjectMeshDescOperator::WriteByName);
         REGISTER_BASE_CLASS_TO_MAP("GameObjectMeshDesc", f_class_function_tuple_GameObjectMeshDesc);
     }namespace TypeFieldReflectionOparator{
     class TypeGameObjectPartDescOperator{
@@ -67,9 +67,9 @@ namespace TypeFieldReflectionOparator{
         
         
         ClassFunctionTuple* f_class_function_tuple_GameObjectPartDesc=new ClassFunctionTuple(
-            &TypeFieldReflectionOparator::TypeGameObjectPartDescOperator::getGameObjectPartDescBaseClassReflectionInstanceList,
-            &TypeFieldReflectionOparator::TypeGameObjectPartDescOperator::constructorWithJson,
-            &TypeFieldReflectionOparator::TypeGameObjectPartDescOperator::writeByName);
+            &TypeFieldReflectionOparator::TypeGameObjectPartDescOperator::GetGameObjectPartDescBaseClassReflectionInstanceList,
+            &TypeFieldReflectionOparator::TypeGameObjectPartDescOperator::ConstructorWithJson,
+            &TypeFieldReflectionOparator::TypeGameObjectPartDescOperator::WriteByName);
         REGISTER_BASE_CLASS_TO_MAP("GameObjectPartDesc", f_class_function_tuple_GameObjectPartDesc);
     }
 namespace TypeWrappersRegister{
